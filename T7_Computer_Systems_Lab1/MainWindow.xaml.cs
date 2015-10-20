@@ -35,6 +35,10 @@ namespace T7_Computer_Systems_Lab1
         private void bTransp_Click(object sender, RoutedEventArgs e)
         {
             tbMxTranspon.Visibility = Visibility.Visible;
+
+
+
+            Divided dvdd = new Divided();
         }
     }
 }

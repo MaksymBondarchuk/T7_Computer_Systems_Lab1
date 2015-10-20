@@ -37,14 +37,11 @@ namespace T7_Computer_Systems_Lab1
                 free_rows.Add(i);
 
             for (int i = 0; i < units_number; i++)
-            {
                 units.Add(new Thread(() => unit_work(i)));
-                units[i].Start();
-            }
 
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(tact_length);
-            dispatcherTimer.Start();
+            
         }
 
         public async void unit_work(int my_idx)
@@ -83,6 +80,17 @@ namespace T7_Computer_Systems_Lab1
                 for (int i = 0; i < units.Count; i++)
                     units[i].Abort();
             }
+        }
+
+        List<List<int>> Transposition()
+        {
+            for (int i = 0; i < units.Count; i++)
+                units[i].Start();
+
+            dispatcherTimer.Start();
+
+            units[0].Join();
+            return mC;
         }
     }
 }
