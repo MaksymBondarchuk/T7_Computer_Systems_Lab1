@@ -24,5 +24,10 @@ namespace T7_Computer_Systems_Lab1
         {
             InitializeComponent();
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
