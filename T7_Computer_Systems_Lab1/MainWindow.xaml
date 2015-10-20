@@ -5,4 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:T7_Computer_Systems_Lab1"
         mc:Ignorable="d"
-        Title="Lab1 design by the TEAM" Height="600" Width="900"/>
+        Title="Lab1 design by the TEAM" Height="600" Width="900">
+    <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="123,113,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+</Window>
