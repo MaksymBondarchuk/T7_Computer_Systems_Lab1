@@ -5,14 +5,4 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:T7_Computer_Systems_Lab1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="bBegin" Content="Begin" HorizontalAlignment="Left" Height="30" Margin="215,160,0,0" VerticalAlignment="Top" Width="85" Click="button_Click"/>
-        <RadioButton x:Name="rbDivided" Content="Divided" HorizontalAlignment="Left" Margin="40,120,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <RadioButton x:Name="rbCommon" Content="Common" HorizontalAlignment="Left" Margin="40,140,0,0" VerticalAlignment="Top"/>
-
-    </Grid>
-</Window>
+        Title="Lab1 design by the TEAM" Height="600" Width="900"/>
