@@ -36,9 +36,6 @@ namespace T7_Computer_Systems_Lab1
         {
             tbMxTranspon.Visibility = Visibility.Visible;
 
-
-
-            Divided dvdd = new Divided();
         }
     }
 }
