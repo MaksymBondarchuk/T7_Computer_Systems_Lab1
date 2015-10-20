@@ -8,8 +8,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="340*"/>
-            <ColumnDefinition Width="177*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Button x:Name="bBegin" Content="Begin" HorizontalAlignment="Left" Height="30" Margin="215,160,0,0" VerticalAlignment="Top" Width="85" Click="button_Click"/>
         <RadioButton x:Name="rbDivided" Content="Divided" HorizontalAlignment="Left" Margin="40,120,0,0" VerticalAlignment="Top" IsChecked="True"/>
