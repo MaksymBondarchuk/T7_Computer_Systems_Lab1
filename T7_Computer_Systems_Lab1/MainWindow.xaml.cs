@@ -30,12 +30,38 @@ namespace T7_Computer_Systems_Lab1
         {
             tbMxGenerate.Visibility = Visibility.Visible;
             bTransp.Visibility = Visibility.Visible;
+
+
         }
 
         private void bTransp_Click(object sender, RoutedEventArgs e)
         {
             tbMxTranspon.Visibility = Visibility.Visible;
 
+        }
+
+        private void lColl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string s = ((Convert.ToInt32(lColl.Content.ToString()) + 1) % 10).ToString();
+            lColl.Content = (s == "0")?  "1" : s;
+        }
+
+        private void lColl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string s = (Convert.ToInt32(lColl.Content.ToString()) - 1).ToString();
+            lColl.Content = (s == "0") ? "9" : s;
+        }
+
+        private void lRow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string s = ((Convert.ToInt32(lRow.Content.ToString()) + 1) % 10).ToString();
+            lRow.Content = (s == "0") ? "1" : s;
+        }
+
+        private void lRow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string s = (Convert.ToInt32(lRow.Content.ToString()) - 1).ToString();
+            lRow.Content = (s == "0") ? "9" : s;
         }
     }
 }
