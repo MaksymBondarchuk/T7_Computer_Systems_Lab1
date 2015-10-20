@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:T7_Computer_Systems_Lab1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Lab1 design by the TEAM" Height="300" Width="900">
     <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="215,70,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="115,110,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="bGenerateMatrix" Content="Generate Matrix" HorizontalAlignment="Left" Margin="30,30,0,0" VerticalAlignment="Top" FontFamily="Lithos Pro Regular" FontSize="21.333" Height="45" Width="220"/>
+        <TextBox x:Name="tbMxGenerate" HorizontalAlignment="Left" Margin="30,100,0,0" TextWrapping="Wrap" Text="&#x9;&#x9;&#x9;&#x9;       &#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" TextChanged="textBox_TextChanged"/>
+        <Button x:Name="bTransp" Content="Transpon" HorizontalAlignment="Center" Margin="463,30,295,0" VerticalAlignment="Top" FontFamily="Lithos Pro Regular" FontSize="21.333" Height="45" Width="134" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tbMxGenerate_Copy" HorizontalAlignment="Left" Margin="463,100,0,0" TextWrapping="Wrap" Text="&#x9;&#x9;&#x9;&#x9;       &#xA;&#x9;&#x9;&#x9;&#xA;" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" TextChanged="textBox_TextChanged"/>
 
     </Grid>
 </Window>
