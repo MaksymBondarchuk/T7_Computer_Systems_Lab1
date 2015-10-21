@@ -31,7 +31,26 @@ namespace T7_Computer_Systems_Lab1
             tbMxGenerate.Visibility = Visibility.Visible;
             bTransp.Visibility = Visibility.Visible;
 
+            Random rand = new Random();
+            int coll = Convert.ToInt32(lColl.Content);
+            int row = Convert.ToInt32(lRow.Content);
+            List<List<int>> matrix = new List<List<int>>();
 
+            for (int i = 0; i < coll; i++)
+            {
+                matrix.Add(new List<int>(row));
+                for (int j = 0; j < row; j++)
+                    matrix[i].Add(rand.Next(-9, 10));
+            }
+
+            tbMxGenerate.Text = "";
+
+            for (int i = 0; i < coll; i++)
+            {
+                for (int j = 0; j < row; j++)
+                    tbMxGenerate.Text += matrix[i][j].ToString() + " ";
+                tbMxGenerate.Text += "\n";
+            }
         }
 
         private void bTransp_Click(object sender, RoutedEventArgs e)
