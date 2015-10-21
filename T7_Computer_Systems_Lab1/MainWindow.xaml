@@ -14,6 +14,8 @@
         <Label x:Name="lColl" Content="5" HorizontalAlignment="Left" Margin="274,30,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lColl_MouseLeftButtonDown" MouseRightButtonDown="lColl_MouseRightButtonDown"/>
         <Label x:Name="lSignOfMult" Content="X" HorizontalAlignment="Left" Margin="298,30,0,0" VerticalAlignment="Top" FontSize="26.667" FontFamily="Segoe UI Black"/>
         <Label x:Name="lRow" Content="5" HorizontalAlignment="Left" Margin="327,30,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lRow_MouseLeftButtonDown" MouseRightButtonDown="lRow_MouseRightButtonDown"/>
+        <Label x:Name="lSignOfWith" Content="/" HorizontalAlignment="Left" Margin="356,30,0,0" VerticalAlignment="Top" FontSize="26.667" FontFamily="Segoe UI Black"/>
+        <Label x:Name="lNumberOfProc" Content="5" HorizontalAlignment="Left" Margin="379,30,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lNumberOfProc_MouseLeftButtonDown" MouseRightButtonDown="lNumberOfProc_MouseRightButtonDown"/>
 
     </Grid>
 </Window>

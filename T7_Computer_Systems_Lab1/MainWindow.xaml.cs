@@ -82,5 +82,17 @@ namespace T7_Computer_Systems_Lab1
             string s = (Convert.ToInt32(lRow.Content.ToString()) - 1).ToString();
             lRow.Content = (s == "0") ? "9" : s;
         }
+
+        private void lNumberOfProc_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string s = ((Convert.ToInt32(lNumberOfProc.Content.ToString()) + 1) % 10).ToString();
+            lNumberOfProc.Content = (s == "0") ? "1" : s;
+        }
+
+        private void lNumberOfProc_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            string s = (Convert.ToInt32(lNumberOfProc.Content.ToString()) - 1).ToString();
+            lNumberOfProc.Content = (s == "0") ? "9" : s;
+        }
     }
 }
