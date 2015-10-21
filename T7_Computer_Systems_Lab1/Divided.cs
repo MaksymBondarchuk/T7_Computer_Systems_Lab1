@@ -14,18 +14,8 @@ namespace T7_Computer_Systems_Lab1
         private List<List<int>> mC = new List<List<int>>();
         private int tact_length = 200;
 
-        private int tact_nmb = -1;
-
         private List<int> free_rows = new List<int>();
 
-        private System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-
-        private static Mutex mtx = new Mutex();
-        private bool flag_mutex = true;
-
-        System.IO.StreamWriter logfile = new System.IO.StreamWriter("log.log");
-
-        // Will transpose mA
         public Divided(List<List<int>> mA, int units_number)
         {
             for (int i = 0; i < mA[0].Count; i++)
@@ -45,65 +35,33 @@ namespace T7_Computer_Systems_Lab1
                 Thread t = new Thread(new ThreadStart(unit_work));
                 t.Name = i.ToString();
                 units.Add(t);
-                //units.Add(new Thread(() => unit_work(i)));
             }
-
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(tact_length);
-
-            logfile.WriteLine("All created\n");
         }
 
         public void unit_work()
         {
-            //int my_tact_nmb = -1;
-            Console.WriteLine(Thread.CurrentThread.Name + " started");
+            //Console.WriteLine(Thread.CurrentThread.Name + " started");
 
             while (true)
             {
-                //if (my_tact_nmb < tact_nmb)
-                //{
-                lock(free_rows)
+                lock (free_rows)
                 {
-                    //mtx.WaitOne();
-                    //Console.WriteLine(Thread.CurrentThread.Name + " alive");
-
-
                     if (free_rows.Count == 0)
                         return;
 
                     int work_with_row = free_rows[0];
-                    
 
-                    Console.WriteLine(Thread.CurrentThread.Name + " taked " + work_with_row.ToString());
+
+                    //Console.WriteLine(Thread.CurrentThread.Name + " taked " + work_with_row.ToString());
 
                     for (int i = 0; i < mA[free_rows[0]].Count; i++)
                         mC[i][free_rows[0]] = mA[free_rows[0]][i];
 
                     free_rows.Remove(free_rows[0]);
-                    //mtx.ReleaseMutex();
-                    //my_tact_nmb++;
-                    //}
 
                     Thread.Sleep(tact_length);
                 }
             }
-        }
-
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            if (free_rows.Count == 0)
-                for (int i = 0; i < units.Count; i++)
-                    units[i].Abort();
-
-            //if (0 < free_rows.Count)
-            //    tact_nmb++;
-            //else
-            //{
-            //    dispatcherTimer.Stop();
-            //    for (int i = 0; i < units.Count; i++)
-            //        units[i].Abort();
-            //}
         }
 
         public List<List<int>> Transposition()
@@ -111,12 +69,9 @@ namespace T7_Computer_Systems_Lab1
             for (int i = 0; i < units.Count; i++)
                 units[i].Start();
 
-            dispatcherTimer.Start();
-
             for (int i = 0; i < units.Count; i++)
                 units[i].Join();
-            dispatcherTimer.Stop();
-            logfile.Close();
+
             return mC;
         }
 
