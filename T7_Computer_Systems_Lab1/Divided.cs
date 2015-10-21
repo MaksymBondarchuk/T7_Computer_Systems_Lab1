@@ -82,7 +82,7 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        List<List<int>> Transposition()
+        public List<List<int>> Transposition()
         {
             for (int i = 0; i < units.Count; i++)
                 units[i].Start();

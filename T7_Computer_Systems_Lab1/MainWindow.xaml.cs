@@ -34,6 +34,7 @@ namespace T7_Computer_Systems_Lab1
             Random rand = new Random();
             int coll = Convert.ToInt32(lColl.Content);
             int row = Convert.ToInt32(lRow.Content);
+            int unit = Convert.ToInt32(lNumberOfProc.Content);
             List<List<int>> matrix = new List<List<int>>();
 
             for (int i = 0; i < coll; i++)
@@ -43,16 +44,37 @@ namespace T7_Computer_Systems_Lab1
                     matrix[i].Add(rand.Next(-9, 10));
             }
 
-            tbMxGenerate.Text = "";
+            //tbMxGenerate.Text = "";
 
-            for (int i = 0; i < coll; i++)
-            {
-                for (int j = 0; j < row; j++)
-                    tbMxGenerate.Text += matrix[i][j].ToString() + " ";
-                tbMxGenerate.Text += "\n";
-            }
+            //for (int i = 0; i < coll; i++)
+            //{
+            //    for (int j = 0; j < row; j++)
+            //        tbMxGenerate.Text += matrix[i][j].ToString() + " ";
+            //    tbMxGenerate.Text += "\n";
+            //}
+            //print_Matrix(matrix, tbMxGenerate);
+
+            //MessageBox.Show("Generate");
+
+            //while (tbMxTranspon.Visibility == Visibility.Hidden) ;
+                //System.Threading.Thread.Sleep(10);
+
+            Divided dv = new Divided(matrix, unit);
+
+            print_Matrix(dv.Transposition(), tbMxGenerate);
         }
 
+        void print_Matrix(List<List<int>> matrix, TextBox tb)
+        {
+            tb.Text = "";
+
+            for (int i = 0; i < matrix.Count; i++)
+            {
+                for (int j = 0; j < matrix[i].Count; j++)
+                    tb.Text += matrix[i][j].ToString() + "\t";
+                tb.Text += "\n";
+            }
+        }
         private void bTransp_Click(object sender, RoutedEventArgs e)
         {
             tbMxTranspon.Visibility = Visibility.Visible;
