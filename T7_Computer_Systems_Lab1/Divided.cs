@@ -16,28 +16,6 @@ namespace T7_Computer_Systems_Lab1
 
         private List<int> free_rows = new List<int>();
 
-        public Divided(List<List<int>> mA, int units_number)
-        {
-            for (int i = 0; i < mA[0].Count; i++)
-            {
-                mC.Add(new List<int>());
-                for (int j = 0; j < mA.Count; j++)
-                    mC[i].Add(0);
-            }
-
-            for (int i = 0; i < mA.Count; i++)
-                free_rows.Add(i);
-
-            this.mA = mA;
-
-            for (int i = 0; i < units_number; i++)
-            {
-                Thread t = new Thread(new ThreadStart(unit_work));
-                t.Name = i.ToString();
-                units.Add(t);
-            }
-        }
-
         public void unit_work()
         {
             //Console.WriteLine(Thread.CurrentThread.Name + " started");
@@ -64,8 +42,34 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        public List<List<int>> Transposition()
+        public List<List<int>> Transposition(List<List<int>> mA, int units_number)
         {
+            // Removing previous data ---------------
+            mC.Clear();
+            free_rows.Clear();
+            units.Clear();
+
+            // Initialisation -----------------------
+            for (int i = 0; i < mA[0].Count; i++)
+            {
+                mC.Add(new List<int>());
+                for (int j = 0; j < mA.Count; j++)
+                    mC[i].Add(0);
+            }
+
+            for (int i = 0; i < mA.Count; i++)
+                free_rows.Add(i);
+
+            this.mA = mA;
+
+            for (int i = 0; i < units_number; i++)
+            {
+                Thread t = new Thread(new ThreadStart(unit_work));
+                t.Name = i.ToString();
+                units.Add(t);
+            }
+
+            // Work ----------------------------------
             for (int i = 0; i < units.Count; i++)
                 units[i].Start();
 
@@ -73,6 +77,12 @@ namespace T7_Computer_Systems_Lab1
                 units[i].Join();
 
             return mC;
+        }
+
+
+        private void Reset()
+        {
+
         }
 
         public void print_matrix(List<List<int>> matrix)

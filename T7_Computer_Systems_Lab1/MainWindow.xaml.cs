@@ -21,6 +21,8 @@ namespace T7_Computer_Systems_Lab1
     public partial class MainWindow : Window
     {
         Divided dv;
+        List<List<int>> matrix;
+        int unit;
 
         public MainWindow()
         {
@@ -35,7 +37,7 @@ namespace T7_Computer_Systems_Lab1
 
             int coll = Convert.ToInt32(lColl.Content);
             int row = Convert.ToInt32(lRow.Content);
-            int unit = Convert.ToInt32(lNumberOfProc.Content);
+            unit = Convert.ToInt32(lNumberOfProc.Content);
 
             //Random rand = new Random();
             //List<List<int>> matrix = new List<List<int>>();
@@ -63,8 +65,8 @@ namespace T7_Computer_Systems_Lab1
             //System.Threading.Thread.Sleep(10);
 
             RandomMatrixGenerator rmg = new RandomMatrixGenerator();
-            var matrix = rmg.Generate(row, coll);
-            dv = new Divided(matrix, unit);
+            matrix = rmg.Generate(row, coll);
+            dv = new Divided();
 
             
             print_Matrix(matrix, tbMxGenerate);
@@ -86,7 +88,7 @@ namespace T7_Computer_Systems_Lab1
         private void bTransp_Click(object sender, RoutedEventArgs e)
         {
             tbMxTranspon.Visibility = Visibility.Visible;
-            var res = dv.Transposition();
+            var res = dv.Transposition(matrix, unit);
             print_Matrix(res, tbMxTranspon);
         }
 
