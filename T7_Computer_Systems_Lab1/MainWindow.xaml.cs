@@ -66,6 +66,7 @@ namespace T7_Computer_Systems_Lab1
             var matrix = rmg.Generate(row, coll);
             dv = new Divided(matrix, unit);
 
+            
             print_Matrix(matrix, tbMxGenerate);
             
         }
@@ -85,7 +86,8 @@ namespace T7_Computer_Systems_Lab1
         private void bTransp_Click(object sender, RoutedEventArgs e)
         {
             tbMxTranspon.Visibility = Visibility.Visible;
-            print_Matrix(dv.Transposition(), tbMxTranspon);
+            var res = dv.Transposition();
+            print_Matrix(res, tbMxTranspon);
         }
 
         private void lColl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
