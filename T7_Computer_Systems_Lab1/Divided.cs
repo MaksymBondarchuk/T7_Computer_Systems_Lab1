@@ -9,19 +9,19 @@ namespace T7_Computer_Systems_Lab1
 {
     public class Divided
     {
-        List<Thread> units = new List<Thread>();
-        List<List<int>> mA;
-        List<List<int>> mC = new List<List<int>>();
-        int tact_length = 200;
+        private List<Thread> units = new List<Thread>();
+        private List<List<int>> mA;
+        private List<List<int>> mC = new List<List<int>>();
+        private int tact_length = 200;
 
-        int tact_nmb = -1;
+        private int tact_nmb = -1;
 
-        List<int> free_rows = new List<int>();
+        private List<int> free_rows = new List<int>();
 
-        System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+        private System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
 
-        static Mutex mtx = new Mutex();
-        bool flag_mutex = true;
+        private static Mutex mtx = new Mutex();
+        private bool flag_mutex = true;
 
         System.IO.StreamWriter logfile = new System.IO.StreamWriter("log.log");
 
@@ -56,45 +56,54 @@ namespace T7_Computer_Systems_Lab1
 
         public void unit_work()
         {
-            int my_tact_nmb = -1;
+            //int my_tact_nmb = -1;
             Console.WriteLine(Thread.CurrentThread.Name + " started");
 
             while (true)
             {
-                if (my_tact_nmb < tact_nmb)
+                //if (my_tact_nmb < tact_nmb)
+                //{
+                lock(free_rows)
                 {
-                    mtx.WaitOne();
-                    logfile.WriteLine(Thread.CurrentThread.Name + " alive");
+                    //mtx.WaitOne();
+                    //Console.WriteLine(Thread.CurrentThread.Name + " alive");
 
 
                     if (free_rows.Count == 0)
                         return;
 
                     int work_with_row = free_rows[0];
+                    
 
-                    logfile.WriteLine(Thread.CurrentThread.Name + " taked " + work_with_row.ToString());
+                    Console.WriteLine(Thread.CurrentThread.Name + " taked " + work_with_row.ToString());
 
-                    for (int i = 0; i < mA[0].Count; i++)
+                    for (int i = 0; i < mA[free_rows[0]].Count; i++)
                         mC[i][free_rows[0]] = mA[free_rows[0]][i];
 
-                    mtx.ReleaseMutex();
-                    my_tact_nmb++;
-                }
+                    free_rows.Remove(free_rows[0]);
+                    //mtx.ReleaseMutex();
+                    //my_tact_nmb++;
+                    //}
 
-                Thread.Sleep(tact_length / 5);
+                    Thread.Sleep(tact_length);
+                }
             }
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (0 < free_rows.Count)
-                tact_nmb++;
-            else
-            {
-                dispatcherTimer.Stop();
+            if (free_rows.Count == 0)
                 for (int i = 0; i < units.Count; i++)
                     units[i].Abort();
-            }
+
+            //if (0 < free_rows.Count)
+            //    tact_nmb++;
+            //else
+            //{
+            //    dispatcherTimer.Stop();
+            //    for (int i = 0; i < units.Count; i++)
+            //        units[i].Abort();
+            //}
         }
 
         public List<List<int>> Transposition()
@@ -104,9 +113,22 @@ namespace T7_Computer_Systems_Lab1
 
             dispatcherTimer.Start();
 
-            units[0].Join();
+            for (int i = 0; i < units.Count; i++)
+                units[i].Join();
+            dispatcherTimer.Stop();
             logfile.Close();
             return mC;
+        }
+
+        public void print_matrix(List<List<int>> matrix)
+        {
+            for (int i = 0; i < matrix.Count; i++)
+            {
+                for (int j = 0; j < matrix[i].Count; j++)
+                    Console.Write(string.Format("{0,4}", matrix[i][j]));
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
     }
 }
