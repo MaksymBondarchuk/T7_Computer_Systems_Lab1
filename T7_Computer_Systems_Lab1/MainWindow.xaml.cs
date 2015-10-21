@@ -20,6 +20,8 @@ namespace T7_Computer_Systems_Lab1
     /// </summary>
     public partial class MainWindow : Window
     {
+        Divided dv;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -31,18 +33,19 @@ namespace T7_Computer_Systems_Lab1
             tbMxGenerate.Visibility = Visibility.Visible;
             bTransp.Visibility = Visibility.Visible;
 
-            Random rand = new Random();
             int coll = Convert.ToInt32(lColl.Content);
             int row = Convert.ToInt32(lRow.Content);
             int unit = Convert.ToInt32(lNumberOfProc.Content);
-            List<List<int>> matrix = new List<List<int>>();
 
-            for (int i = 0; i < coll; i++)
-            {
-                matrix.Add(new List<int>(row));
-                for (int j = 0; j < row; j++)
-                    matrix[i].Add(rand.Next(-9, 10));
-            }
+            //Random rand = new Random();
+            //List<List<int>> matrix = new List<List<int>>();
+
+            //for (int i = 0; i < coll; i++)
+            //{
+            //    matrix.Add(new List<int>(row));
+            //    for (int j = 0; j < row; j++)
+            //        matrix[i].Add(rand.Next(-9, 10));
+            //}
 
             //tbMxGenerate.Text = "";
 
@@ -57,11 +60,14 @@ namespace T7_Computer_Systems_Lab1
             //MessageBox.Show("Generate");
 
             //while (tbMxTranspon.Visibility == Visibility.Hidden) ;
-                //System.Threading.Thread.Sleep(10);
+            //System.Threading.Thread.Sleep(10);
 
-            Divided dv = new Divided(matrix, unit);
+            RandomMatrixGenerator rmg = new RandomMatrixGenerator();
+            var matrix = rmg.Generate(row, coll);
+            dv = new Divided(matrix, unit);
 
-            print_Matrix(dv.Transposition(), tbMxGenerate);
+            print_Matrix(matrix, tbMxGenerate);
+            
         }
 
         void print_Matrix(List<List<int>> matrix, TextBox tb)
@@ -71,14 +77,15 @@ namespace T7_Computer_Systems_Lab1
             for (int i = 0; i < matrix.Count; i++)
             {
                 for (int j = 0; j < matrix[i].Count; j++)
-                    tb.Text += matrix[i][j].ToString() + "\t";
+                    tb.Text += string.Format("{0,4}", matrix[i][j]);
                 tb.Text += "\n";
             }
         }
+
         private void bTransp_Click(object sender, RoutedEventArgs e)
         {
             tbMxTranspon.Visibility = Visibility.Visible;
-
+            print_Matrix(dv.Transposition(), tbMxTranspon);
         }
 
         private void lColl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

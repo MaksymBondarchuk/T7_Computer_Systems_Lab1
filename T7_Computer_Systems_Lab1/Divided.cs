@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace T7_Computer_Systems_Lab1
 {
-    class Divided
+    public class Divided
     {
         List<Thread> units = new List<Thread>();
         List<List<int>> mA;
@@ -23,7 +23,7 @@ namespace T7_Computer_Systems_Lab1
         Mutex mtx = new Mutex();
 
 
-
+        // Will transpose mA
         public Divided(List<List<int>> mA, int units_number)
         {
             for (int i = 0; i < mA[0].Count; i++)
