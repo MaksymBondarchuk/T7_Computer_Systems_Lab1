@@ -73,12 +73,12 @@ namespace T7_Computer_Systems_Lab1
 
         void print_Matrix(List<List<int>> matrix, TextBox tb)
         {
-            tb.Text = "";
+            tb.Text = "\n";
 
             for (int i = 0; i < matrix.Count; i++)
             {
                 for (int j = 0; j < matrix[i].Count; j++)
-                    tb.Text += string.Format("{0,4}", matrix[i][j]);
+                    tb.Text += string.Format("{0,4}", matrix[i][j]) + "\t";
                 tb.Text += "\n";
             }
         }
