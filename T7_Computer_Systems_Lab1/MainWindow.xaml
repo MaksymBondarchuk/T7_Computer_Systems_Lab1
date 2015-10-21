@@ -5,20 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:T7_Computer_Systems_Lab1"
         mc:Ignorable="d"
-        Title="Lab1 design by the TEAM" Height="300" Width="900">
+        Title="Lab1 design by the TEAM" Height="500" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="bGenerateMatrix" Content="Generate Matrix" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" FontSize="26.667" Click="bGenerateMatrix_Click" BorderBrush="White" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="40"/>
-        <TextBox x:Name="tbMxGenerate" HorizontalAlignment="Left" Margin="10,80,0,0" TextWrapping="Wrap" Text="&#x9;&#x9;&#x9;&#x9;       &#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" IsReadOnly="True" FontFamily="Consolas"/>
-        <Button x:Name="bTransp" Content="Transpon" HorizontalAlignment="Center" Margin="489,35,256,0" VerticalAlignment="Top" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="bTransp_Click" Width="147" Background="White" BorderBrush="White" Height="40"/>
-        <TextBox x:Name="tbMxTranspon" HorizontalAlignment="Left" Margin="463,100,0,0" TextWrapping="Wrap" Text="&#x9;&#x9;&#x9;&#x9;       &#xA;&#x9;&#x9;&#x9;&#xA;" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" Grid.ColumnSpan="2" FontFamily="Consolas"/>
-        <Label x:Name="lColl" Content="5" HorizontalAlignment="Left" Margin="274,30,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lColl_MouseLeftButtonDown" MouseRightButtonDown="lColl_MouseRightButtonDown"/>
-        <Label x:Name="lSignOfMult" Content="X" HorizontalAlignment="Left" Margin="298,30,0,0" VerticalAlignment="Top" FontSize="26.667" FontFamily="Segoe UI Black"/>
-        <Label x:Name="lRow" Content="3" HorizontalAlignment="Left" Margin="327,30,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lRow_MouseLeftButtonDown" MouseRightButtonDown="lRow_MouseRightButtonDown"/>
-        <Label x:Name="lSignOfWith" Content="/" HorizontalAlignment="Left" Margin="356,30,0,0" VerticalAlignment="Top" FontSize="26.667" FontFamily="Segoe UI Black"/>
-        <Label x:Name="lNumberOfProc" Content="5" HorizontalAlignment="Left" Margin="379,30,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lNumberOfProc_MouseLeftButtonDown" MouseRightButtonDown="lNumberOfProc_MouseRightButtonDown"/>
+        <Button x:Name="bGenerateMatrix" Content="Generate Matrix" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="26.667" Click="bGenerateMatrix_Click" BorderBrush="White" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="40"/>
+        <TextBox x:Name="tbMxGenerate" HorizontalAlignment="Left" Margin="10,54,0,0" TextWrapping="Wrap" Text="&#x9;&#x9;&#x9;&#x9;       &#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" IsReadOnly="True" FontFamily="Consolas"/>
+        <Button x:Name="bTransp" Content="Transpon" HorizontalAlignment="Center" Margin="433,58,330,0" VerticalAlignment="Top" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="bTransp_Click" Width="129" Background="White" BorderBrush="White" Height="40"/>
+        <TextBox x:Name="tbMxTranspon" HorizontalAlignment="Left" Margin="618,58,0,0" TextWrapping="Wrap" Text="&#x9;&#x9;&#x9;&#x9;       &#xA;&#x9;&#x9;&#x9;&#xA;" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" FontFamily="Consolas" Width="291"/>
+        <Label x:Name="lColl" Content="5" HorizontalAlignment="Left" Margin="433,10,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lColl_MouseLeftButtonDown" MouseRightButtonDown="lColl_MouseRightButtonDown"/>
+        <Label x:Name="lSignOfMult" Content="X" HorizontalAlignment="Left" Margin="457,10,0,0" VerticalAlignment="Top" FontSize="26.667" FontFamily="Segoe UI Black"/>
+        <Label x:Name="lRow" Content="3" HorizontalAlignment="Left" Margin="486,10,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lRow_MouseLeftButtonDown" MouseRightButtonDown="lRow_MouseRightButtonDown"/>
+        <Label x:Name="lSignOfWith" Content="/" HorizontalAlignment="Left" Margin="515,10,0,0" VerticalAlignment="Top" FontSize="26.667" FontFamily="Segoe UI Black"/>
+        <Label x:Name="lNumberOfProc" Content="5" HorizontalAlignment="Left" Margin="538,10,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lNumberOfProc_MouseLeftButtonDown" MouseRightButtonDown="lNumberOfProc_MouseRightButtonDown"/>
 
     </Grid>
 </Window>
