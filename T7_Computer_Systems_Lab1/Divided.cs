@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using T7_Computer_Systems_Lab1.Properties;
 
 namespace T7_Computer_Systems_Lab1
 {
     public class Divided
     {
-        private List<Thread> units = new List<Thread>();
-        private List<List<int>> mA;
-        private List<List<int>> mC = new List<List<int>>();
-        private int tact_length = 200;
+        private readonly List<Thread> _units = new List<Thread>();
+        private List<List<int>> _mA;
+        private readonly List<List<int>> _mC = new List<List<int>>();
+        private const int TactLength = 200;
 
-        private List<int> free_rows = new List<int>();
+        private readonly List<int> _freeRows = new List<int>();
 
         public void unit_work()
         {
@@ -22,75 +20,66 @@ namespace T7_Computer_Systems_Lab1
 
             while (true)
             {
-                lock (free_rows)
+                lock (_freeRows)
                 {
-                    if (free_rows.Count == 0)
+                    if (_freeRows.Count == 0)
                         return;
-
-                    int work_with_row = free_rows[0];
-
 
                     //Console.WriteLine(Thread.CurrentThread.Name + " taked " + work_with_row.ToString());
 
-                    for (int i = 0; i < mA[free_rows[0]].Count; i++)
-                        mC[i][free_rows[0]] = mA[free_rows[0]][i];
+                    for (int i = 0; i < _mA[_freeRows[0]].Count; i++)
+                        _mC[i][_freeRows[0]] = _mA[_freeRows[0]][i];
 
-                    free_rows.Remove(free_rows[0]);
+                    _freeRows.Remove(_freeRows[0]);
 
-                    Thread.Sleep(tact_length);
+                    Thread.Sleep(TactLength);
                 }
             }
         }
 
-        public List<List<int>> Transposition(List<List<int>> mA, int units_number)
+        public List<List<int>> Transposition(List<List<int>> mA, int unitsNumber)
         {
             // Removing previous data ---------------
-            mC.Clear();
-            free_rows.Clear();
-            units.Clear();
+            _mC.Clear();
+            _freeRows.Clear();
+            _units.Clear();
 
             // Initialisation -----------------------
-            for (int i = 0; i < mA[0].Count; i++)
+            for (var i = 0; i < mA[0].Count; i++)
             {
-                mC.Add(new List<int>());
+                _mC.Add(new List<int>());
                 for (int j = 0; j < mA.Count; j++)
-                    mC[i].Add(0);
+                    _mC[i].Add(0);
             }
 
-            for (int i = 0; i < mA.Count; i++)
-                free_rows.Add(i);
+            for (var i = 0; i < mA.Count; i++)
+                _freeRows.Add(i);
 
-            this.mA = mA;
+            _mA = mA;
 
-            for (int i = 0; i < units_number; i++)
+            for (var i = 0; i < unitsNumber; i++)
             {
-                Thread t = new Thread(new ThreadStart(unit_work));
-                t.Name = i.ToString();
-                units.Add(t);
+                var t = new Thread(unit_work) {Name = i.ToString()};
+                _units.Add(t);
             }
 
             // Work ----------------------------------
-            for (int i = 0; i < units.Count; i++)
-                units[i].Start();
+            foreach (var t in _units)
+                t.Start();
 
-            for (int i = 0; i < units.Count; i++)
-                units[i].Join();
+            foreach (var t in _units)
+                t.Join();
 
-            return mC;
+            return _mC;
         }
 
-
-        private void Reset()
-        {
-
-        }
 
         public void print_matrix(List<List<int>> matrix)
         {
-            for (int i = 0; i < matrix.Count; i++)
+            foreach (var t in matrix)
             {
-                for (int j = 0; j < matrix[i].Count; j++)
-                    Console.Write(string.Format("{0,4}", matrix[i][j]));
+                foreach (var t1 in t)
+                    Console.Write(Resources.Divided_print_matrix__0_4_, t1);
                 Console.WriteLine();
             }
             Console.WriteLine();
