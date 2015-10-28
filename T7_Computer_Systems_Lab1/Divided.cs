@@ -9,10 +9,21 @@ namespace T7_Computer_Systems_Lab1
     {
         private readonly List<Thread> _units = new List<Thread>();
         private List<List<int>> _mA;
-        private readonly List<List<int>> _mC = new List<List<int>>();
+        private List<List<int>> _mB;
+        private List<List<int>> _mC = new List<List<int>>();
         private const int TactLength = 200;
 
+        private bool _addition;
+        private bool _transposition;
+
         private readonly List<int> _freeRows = new List<int>();
+
+        public class FreeCell
+        {
+            public int Row;
+            public int Coll;
+        }
+        private readonly List<FreeCell> _freeCells = new List<FreeCell>();
 
         public void unit_work()
         {
@@ -20,6 +31,15 @@ namespace T7_Computer_Systems_Lab1
 
             while (true)
             {
+                if (_addition)
+                    lock (_freeCells)
+                    {
+
+                        Thread.Sleep(TactLength);
+                        continue;
+                    }
+
+                if (!_transposition) continue;
                 lock (_freeRows)
                 {
                     if (_freeRows.Count == 0)
@@ -37,18 +57,16 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        public List<List<int>> Transposition(List<List<int>> mA, int unitsNumber)
+        public List<List<int>> Transpose(List<List<int>> mA, int unitsNumber)
         {
-            // Removing previous data ---------------
-            _mC.Clear();
-            _freeRows.Clear();
-            _units.Clear();
+            CommonInitialisation(unitsNumber);
+            _transposition = true;
 
-            // Initialisation -----------------------
+            // Result matrix initialisation -----------------------
             for (var i = 0; i < mA[0].Count; i++)
             {
                 _mC.Add(new List<int>());
-                for (int j = 0; j < mA.Count; j++)
+                for (var j = 0; j < mA.Count; j++)
                     _mC[i].Add(0);
             }
 
@@ -57,22 +75,32 @@ namespace T7_Computer_Systems_Lab1
 
             _mA = mA;
 
-            for (var i = 0; i < unitsNumber; i++)
-            {
-                var t = new Thread(unit_work) {Name = i.ToString()};
-                _units.Add(t);
-            }
-
-            // Work ----------------------------------
-            foreach (var t in _units)
-                t.Start();
-
-            foreach (var t in _units)
-                t.Join();
-
-            return _mC;
+            return DoWork();
         }
 
+        public List<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
+        {
+            CommonInitialisation(unitsNumber);
+            _transposition = true;
+
+            // Result matrix initialisation -----------------------
+            for (var i = 0; i < mA[0].Count; i++)
+            {
+                _mC.Add(new List<int>());
+                for (var j = 0; j < mA.Count; j++)
+                    _mC[i].Add(0);
+            }
+
+            for (var i = 0; i < mA.Count; i++)
+                for (var j = 0; j < mA[i].Count; j++)
+                    _freeRows.Add(i);
+
+            _mA = mA;
+            _mB = mB;
+            _mC = mA;
+
+            return DoWork();
+        }
 
         public void print_matrix(List<List<int>> matrix)
         {
@@ -83,6 +111,29 @@ namespace T7_Computer_Systems_Lab1
                 Console.WriteLine();
             }
             Console.WriteLine();
+        }
+
+        private void CommonInitialisation(int unitsNumber)
+        {
+            _mC.Clear();
+            _freeRows.Clear();
+            _units.Clear();
+            _addition = false;
+            _transposition = false;
+
+            for (var i = 0; i < unitsNumber; i++)
+                _units.Add(new Thread(unit_work) { Name = i.ToString() });
+        }
+
+        private List<List<int>> DoWork()
+        {
+            foreach (var t in _units)
+                t.Start();
+
+            foreach (var t in _units)
+                t.Join();
+
+            return _mC;
         }
     }
 }

@@ -88,7 +88,7 @@ namespace T7_Computer_Systems_Lab1
         private void bTransp_Click(object sender, RoutedEventArgs e)
         {
             tbMxTranspon.Visibility = Visibility.Visible;
-            var res = dv.Transposition(matrix, unit);
+            var res = dv.Transpose(matrix, unit);
             print_Matrix(res, tbMxTranspon);
         }
 
