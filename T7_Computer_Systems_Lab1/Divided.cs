@@ -19,6 +19,8 @@ namespace T7_Computer_Systems_Lab1
 
         private readonly List<int> _freeRows = new List<int>();
 
+        public TimeSpan Time;
+
         public class FreeCell
         {
             public int Row;
@@ -158,12 +160,15 @@ namespace T7_Computer_Systems_Lab1
 
         private List<List<int>> DoWork()
         {
+            var startTime = DateTime.Now;
+
             foreach (var t in _units)
                 t.Start();
 
             foreach (var t in _units)
                 t.Join();
 
+            Time = DateTime.Now - startTime;
             return _mC;
         }
     }
