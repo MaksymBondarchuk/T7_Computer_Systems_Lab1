@@ -80,26 +80,33 @@ namespace T7_Computer_Systems_Lab1
 
         public List<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
         {
-            CommonInitialisation(unitsNumber);
-            _transposition = true;
+            return mA;
 
-            // Result matrix initialisation -----------------------
-            for (var i = 0; i < mA[0].Count; i++)
-            {
-                _mC.Add(new List<int>());
-                for (var j = 0; j < mA.Count; j++)
-                    _mC[i].Add(0);
-            }
+            //CommonInitialisation(unitsNumber);
+            //_transposition = true;
 
-            for (var i = 0; i < mA.Count; i++)
-                for (var j = 0; j < mA[i].Count; j++)
-                    _freeRows.Add(i);
+            //// Result matrix initialisation -----------------------
+            //for (var i = 0; i < mA[0].Count; i++)
+            //{
+            //    _mC.Add(new List<int>());
+            //    for (var j = 0; j < mA.Count; j++)
+            //        _mC[i].Add(0);
+            //}
 
-            _mA = mA;
-            _mB = mB;
-            _mC = mA;
+            //for (var i = 0; i < mA.Count; i++)
+            //    for (var j = 0; j < mA[i].Count; j++)
+            //        _freeRows.Add(i);
 
-            return DoWork();
+            //_mA = mA;
+            //_mB = mB;
+            //_mC = mA;
+
+            //return DoWork();
+        }
+
+        public List<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
+        {
+            return mA;
         }
 
         public void print_matrix(List<List<int>> matrix)
