@@ -20,30 +20,24 @@ namespace T7_Computer_Systems_Lab1
     /// </summary>
     public partial class MainWindow : Window
     {
-        Divided dv;
-        List<List<int>> matrix;
-        int unit;
+        Divided _dv;
+        List<List<int>> _matrix;
+        int _unit;
 
         public MainWindow()
         {
             InitializeComponent();
         }
-        
 
-        private void bGenerateMatrix_Click(object sender, RoutedEventArgs e)
-        {
-            
-            
-        }
 
-        void print_Matrix(List<List<int>> matrix, TextBox tb)
+        static void print_Matrix(IEnumerable<List<int>> matrix, TextBox tb)
         {
             tb.Text = "\n";
 
-            for (int i = 0; i < matrix.Count; i++)
+            foreach (var t in matrix)
             {
-                for (int j = 0; j < matrix[i].Count; j++)
-                    tb.Text += string.Format("{0,4}", matrix[i][j]) + "\t";
+                foreach (var t1 in t)
+                    tb.Text += $"{t1,4}" + "\t";
                 tb.Text += "\n";
             }
         }
@@ -52,43 +46,43 @@ namespace T7_Computer_Systems_Lab1
         {
             //tbMxRes.Visibility = Visibility.Visible;
             tbMx2.Text = tbMx1.Text;
-            var res = dv.Transpose(matrix, unit);
+            var res = _dv.Transpose(_matrix, _unit);
             print_Matrix(res, tbMxRes);
         }
 
         private void lColl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string s = ((Convert.ToInt32(lCollMx1.Content.ToString()) + 1) % 10).ToString();
+            var s = ((Convert.ToInt32(lCollMx1.Content.ToString()) + 1) % 10).ToString();
             lCollMx1.Content = (s == "0")?  "1" : s;
         }
 
         private void lColl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string s = (Convert.ToInt32(lCollMx1.Content.ToString()) - 1).ToString();
+            var s = (Convert.ToInt32(lCollMx1.Content.ToString()) - 1).ToString();
             lCollMx1.Content = (s == "0") ? "9" : s;
         }
 
         private void lRow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string s = ((Convert.ToInt32(lRowMx1.Content.ToString()) + 1) % 10).ToString();
+            var s = ((Convert.ToInt32(lRowMx1.Content.ToString()) + 1) % 10).ToString();
             lRowMx1.Content = (s == "0") ? "1" : s;
         }
 
         private void lRow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string s = (Convert.ToInt32(lRowMx1.Content.ToString()) - 1).ToString();
+            var s = (Convert.ToInt32(lRowMx1.Content.ToString()) - 1).ToString();
             lRowMx1.Content = (s == "0") ? "9" : s;
         }
 
         private void lNumberOfProc_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string s = ((Convert.ToInt32(lNumberOfProc.Content.ToString()) + 1) % 10).ToString();
+            var s = ((Convert.ToInt32(lNumberOfProc.Content.ToString()) + 1) % 10).ToString();
             lNumberOfProc.Content = (s == "0") ? "1" : s;
         }
 
         private void lNumberOfProc_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string s = (Convert.ToInt32(lNumberOfProc.Content.ToString()) - 1).ToString();
+            var s = (Convert.ToInt32(lNumberOfProc.Content.ToString()) - 1).ToString();
             lNumberOfProc.Content = (s == "0") ? "9" : s;
         }
 
@@ -97,9 +91,9 @@ namespace T7_Computer_Systems_Lab1
             //tbMx1.Visibility = Visibility.Visible;
             //bTsp.Visibility = Visibility.Visible;
 
-            int coll = Convert.ToInt32(lCollMx1.Content);
-            int row = Convert.ToInt32(lRowMx1.Content);
-            unit = Convert.ToInt32(lNumberOfProc.Content);
+            var coll = Convert.ToInt32(lCollMx1.Content);
+            var row = Convert.ToInt32(lRowMx1.Content);
+            _unit = Convert.ToInt32(lNumberOfProc.Content);
 
             //Random rand = new Random();
             //List<List<int>> matrix = new List<List<int>>();
@@ -126,12 +120,12 @@ namespace T7_Computer_Systems_Lab1
             //while (tbMxTranspon.Visibility == Visibility.Hidden) ;
             //System.Threading.Thread.Sleep(10);
 
-            RandomMatrixGenerator rmg = new RandomMatrixGenerator();
-            matrix = rmg.Generate(row, coll);
-            dv = new Divided();
+            var rmg = new RandomMatrixGenerator();
+            _matrix = rmg.Generate(row, coll);
+            _dv = new Divided();
 
 
-            print_Matrix(matrix, tbMx1);
+            print_Matrix(_matrix, tbMx1);
         }
     }
 }
