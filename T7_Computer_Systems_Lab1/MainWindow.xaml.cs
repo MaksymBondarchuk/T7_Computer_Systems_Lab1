@@ -94,7 +94,7 @@ namespace T7_Computer_Systems_Lab1
         private void tbMxGenerate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             tbMxGenerate.Visibility = Visibility.Visible;
-            bTransp.Visibility = Visibility.Visible;
+            bTsp.Visibility = Visibility.Visible;
 
             int coll = Convert.ToInt32(lColl.Content);
             int row = Convert.ToInt32(lRow.Content);
