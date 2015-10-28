@@ -5,20 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:T7_Computer_Systems_Lab1"
         mc:Ignorable="d"
-        Title="Lab1 design by the TEAM" Height="500" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
-    <Grid>
+        Title="Lab1 design by the TEAM" Height="380" Width="960" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid Height="371" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="bGenerateMatrix" Content="Generate Matrix" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontSize="26.667" Click="bGenerateMatrix_Click" BorderBrush="White" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="40"/>
-        <TextBox x:Name="tbMxGenerate" HorizontalAlignment="Left" Margin="10,54,0,0" TextWrapping="Wrap" Text="&#x9;&#x9;&#x9;&#x9;       &#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" IsReadOnly="True" FontFamily="Consolas"/>
-        <Button x:Name="bTransp" Content="Transpose" HorizontalAlignment="Center" Margin="433,58,330,0" VerticalAlignment="Top" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="bTransp_Click" Width="129" Background="White" BorderBrush="White" Height="40"/>
-        <TextBox x:Name="tbMxTranspon" HorizontalAlignment="Left" Margin="618,58,0,0" TextWrapping="Wrap" Text="&#x9;&#x9;&#x9;&#x9;       &#xA;&#x9;&#x9;&#x9;&#xA;" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" FontFamily="Consolas" Width="291"/>
-        <Label x:Name="lColl" Content="5" HorizontalAlignment="Left" Margin="433,10,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lColl_MouseLeftButtonDown" MouseRightButtonDown="lColl_MouseRightButtonDown"/>
-        <Label x:Name="lSignOfMult" Content="X" HorizontalAlignment="Left" Margin="457,10,0,0" VerticalAlignment="Top" FontSize="26.667" FontFamily="Segoe UI Black"/>
-        <Label x:Name="lRow" Content="3" HorizontalAlignment="Left" Margin="486,10,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lRow_MouseLeftButtonDown" MouseRightButtonDown="lRow_MouseRightButtonDown"/>
-        <Label x:Name="lSignOfWith" Content="/" HorizontalAlignment="Left" Margin="515,10,0,0" VerticalAlignment="Top" FontSize="26.667" FontFamily="Segoe UI Black"/>
-        <Label x:Name="lNumberOfProc" Content="5" HorizontalAlignment="Left" Margin="538,10,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lNumberOfProc_MouseLeftButtonDown" MouseRightButtonDown="lNumberOfProc_MouseRightButtonDown"/>
+        <TextBox x:Name="tbMxGenerate" HorizontalAlignment="Left" Margin="10,0,0,204" TextWrapping="Wrap" VerticalAlignment="Bottom" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" IsReadOnly="True" FontFamily="Consolas" Width="438" Height="157" MouseDoubleClick="tbMxGenerate_MouseDoubleClick" Cursor="Arrow"/>
+        <Button x:Name="bTransp" Content="T" Margin="453,186,0,0" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="bTransp_Click" Background="White" BorderBrush="White" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="38"/>
+        <Label x:Name="lColl" Content="5" HorizontalAlignment="Left" Margin="842,34,0,0" VerticalAlignment="Top" FontSize="24" MouseLeftButtonDown="lColl_MouseLeftButtonDown" MouseRightButtonDown="lColl_MouseRightButtonDown"/>
+        <Label x:Name="lSignOfMult" Content="X" HorizontalAlignment="Left" Margin="865,34,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Segoe UI Black" RenderTransformOrigin="0.304,0.6"/>
+        <Label x:Name="lRow" Content="3" HorizontalAlignment="Left" Margin="892,34,0,0" VerticalAlignment="Top" FontSize="24" MouseLeftButtonDown="lRow_MouseLeftButtonDown" MouseRightButtonDown="lRow_MouseRightButtonDown"/>
+        <Label x:Name="lNumberOfProc" Content="5" HorizontalAlignment="Left" Margin="569,4,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lNumberOfProc_MouseLeftButtonDown" MouseRightButtonDown="lNumberOfProc_MouseRightButtonDown"/>
+        <TextBox x:Name="tbMxTranspon" Margin="10,0,0,42" TextWrapping="Wrap" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" IsReadOnly="True" FontFamily="Consolas" MouseDoubleClick="tbMxGenerate_MouseDoubleClick" Cursor="Arrow" Height="157" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="438"/>
+        <Button x:Name="bTransp_Copy" Content="+" HorizontalAlignment="Left" Margin="453,231,0,100" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="bTransp_Click" Background="White" BorderBrush="White" Width="38"/>
+        <Button x:Name="bTransp_Copy1" Content="*" HorizontalAlignment="Left" Margin="453,276,0,55" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="bTransp_Click" Background="White" BorderBrush="White" Width="38"/>
+        <TextBox x:Name="tbMxTranspon_Copy" Margin="496,0,0,42" TextWrapping="Wrap" RenderTransformOrigin="0.5,0.5" Background="White" BorderBrush="#FFB49C9C" IsReadOnly="True" FontFamily="Consolas" MouseDoubleClick="tbMxGenerate_MouseDoubleClick" Cursor="Arrow" Height="157" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="438"/>
+        <GroupBox x:Name="groupBox" Header="I Matrix" HorizontalAlignment="Left" Height="66" Margin="823,10,0,0" VerticalAlignment="Top" Width="111" FontSize="18.667"/>
+        <Label x:Name="lColl_Copy" Content="5" HorizontalAlignment="Left" Margin="842,115,0,0" VerticalAlignment="Top" FontSize="24" MouseLeftButtonDown="lColl_MouseLeftButtonDown" MouseRightButtonDown="lColl_MouseRightButtonDown"/>
+        <Label x:Name="lSignOfMult_Copy" Content="X" HorizontalAlignment="Left" Margin="865,115,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Segoe UI Black" RenderTransformOrigin="0.304,0.6"/>
+        <Label x:Name="lRow_Copy" Content="3" HorizontalAlignment="Left" Margin="892,115,0,0" VerticalAlignment="Top" FontSize="24" MouseLeftButtonDown="lRow_MouseLeftButtonDown" MouseRightButtonDown="lRow_MouseRightButtonDown"/>
+        <GroupBox x:Name="groupBox_Copy" Header="II Matrix" Height="66" Margin="823,91,0,0" VerticalAlignment="Top" FontSize="18.667" HorizontalAlignment="Left" Width="111"/>
+        <Label x:Name="label" Content="Unit's:" HorizontalAlignment="Left" Margin="496,10,0,0" VerticalAlignment="Top" FontSize="21.333"/>
+        <RadioButton x:Name="radioButton" Content="Method_1" HorizontalAlignment="Left" Margin="505,127,0,0" VerticalAlignment="Top" FontSize="18.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsChecked="True"/>
+        <RadioButton x:Name="radioButton_Copy" Content="Method_1" HorizontalAlignment="Left" Margin="604,127,0,0" VerticalAlignment="Top" FontSize="18.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <GroupBox x:Name="groupBox1" Header="Type:" HorizontalAlignment="Left" Height="56" Margin="496,101,0,0" VerticalAlignment="Top" Width="212" FontSize="18.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="lSomething" Content="Something" HorizontalAlignment="Left" Margin="658,11,0,0" VerticalAlignment="Top" FontSize="21.333"/>
+        <Label x:Name="lSomething_Copy1" Content="Something" HorizontalAlignment="Left" Margin="496,54,0,0" VerticalAlignment="Top" FontSize="21.333"/>
+        <Label x:Name="lSomething_Copy2" Content="Something" HorizontalAlignment="Left" Margin="658,54,0,0" VerticalAlignment="Top" FontSize="21.333"/>
 
     </Grid>
 </Window>

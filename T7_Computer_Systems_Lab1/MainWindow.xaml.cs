@@ -32,44 +32,7 @@ namespace T7_Computer_Systems_Lab1
 
         private void bGenerateMatrix_Click(object sender, RoutedEventArgs e)
         {
-            tbMxGenerate.Visibility = Visibility.Visible;
-            bTransp.Visibility = Visibility.Visible;
-
-            int coll = Convert.ToInt32(lColl.Content);
-            int row = Convert.ToInt32(lRow.Content);
-            unit = Convert.ToInt32(lNumberOfProc.Content);
-
-            //Random rand = new Random();
-            //List<List<int>> matrix = new List<List<int>>();
-
-            //for (int i = 0; i < coll; i++)
-            //{
-            //    matrix.Add(new List<int>(row));
-            //    for (int j = 0; j < row; j++)
-            //        matrix[i].Add(rand.Next(-9, 10));
-            //}
-
-            //tbMxGenerate.Text = "";
-
-            //for (int i = 0; i < coll; i++)
-            //{
-            //    for (int j = 0; j < row; j++)
-            //        tbMxGenerate.Text += matrix[i][j].ToString() + " ";
-            //    tbMxGenerate.Text += "\n";
-            //}
-            //print_Matrix(matrix, tbMxGenerate);
-
-            //MessageBox.Show("Generate");
-
-            //while (tbMxTranspon.Visibility == Visibility.Hidden) ;
-            //System.Threading.Thread.Sleep(10);
-
-            RandomMatrixGenerator rmg = new RandomMatrixGenerator();
-            matrix = rmg.Generate(row, coll);
-            dv = new Divided();
-
             
-            print_Matrix(matrix, tbMxGenerate);
             
         }
 
@@ -126,6 +89,48 @@ namespace T7_Computer_Systems_Lab1
         {
             string s = (Convert.ToInt32(lNumberOfProc.Content.ToString()) - 1).ToString();
             lNumberOfProc.Content = (s == "0") ? "9" : s;
+        }
+
+        private void tbMxGenerate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            tbMxGenerate.Visibility = Visibility.Visible;
+            bTransp.Visibility = Visibility.Visible;
+
+            int coll = Convert.ToInt32(lColl.Content);
+            int row = Convert.ToInt32(lRow.Content);
+            unit = Convert.ToInt32(lNumberOfProc.Content);
+
+            //Random rand = new Random();
+            //List<List<int>> matrix = new List<List<int>>();
+
+            //for (int i = 0; i < coll; i++)
+            //{
+            //    matrix.Add(new List<int>(row));
+            //    for (int j = 0; j < row; j++)
+            //        matrix[i].Add(rand.Next(-9, 10));
+            //}
+
+            //tbMxGenerate.Text = "";
+
+            //for (int i = 0; i < coll; i++)
+            //{
+            //    for (int j = 0; j < row; j++)
+            //        tbMxGenerate.Text += matrix[i][j].ToString() + " ";
+            //    tbMxGenerate.Text += "\n";
+            //}
+            //print_Matrix(matrix, tbMxGenerate);
+
+            //MessageBox.Show("Generate");
+
+            //while (tbMxTranspon.Visibility == Visibility.Hidden) ;
+            //System.Threading.Thread.Sleep(10);
+
+            RandomMatrixGenerator rmg = new RandomMatrixGenerator();
+            matrix = rmg.Generate(row, coll);
+            dv = new Divided();
+
+
+            print_Matrix(matrix, tbMxGenerate);
         }
     }
 }
