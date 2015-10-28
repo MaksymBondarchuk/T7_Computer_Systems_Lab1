@@ -14,6 +14,7 @@ namespace T7_Computer_Systems_Lab1
         private const int TactLength = 200;
 
         private bool _addition;
+        private bool _multiplication;
         private bool _transposition;
 
         private readonly List<int> _freeRows = new List<int>();
@@ -37,19 +38,25 @@ namespace T7_Computer_Systems_Lab1
 
             while (true)
             {
-                if (_addition)
+                if (_addition || _multiplication)
                     lock (_freeCells)
                     {
                         if (_freeCells.Count == 0)
                             return;
 
-                        _mC[_freeCells[0].Row][_freeCells[0].Coll] = _mA[_freeCells[0].Row][_freeCells[0].Coll] +
-                                                                     _mB[_freeCells[0].Row][_freeCells[0].Coll];
+                        if (_addition)
+                            _mC[_freeCells[0].Row][_freeCells[0].Coll] = _mA[_freeCells[0].Row][_freeCells[0].Coll] +
+                                                                         _mB[_freeCells[0].Row][_freeCells[0].Coll];
+                        else
+                            for (var i = 0; i < _mA[0].Count; i++)
+                                _mC[_freeCells[0].Row][_freeCells[0].Coll] += _mA[_freeCells[0].Row][i] *
+                                                                     _mB[i][_freeCells[0].Coll];
 
                         _freeCells.RemoveAt(0);
                         Thread.Sleep(TactLength);
                         continue;
                     }
+
 
                 if (!_transposition) continue;
                 lock (_freeRows)
@@ -92,14 +99,6 @@ namespace T7_Computer_Systems_Lab1
             CommonInitialisation(unitsNumber);
             _addition = true;
 
-            // Result matrix initialisation -----------------------
-            for (var i = 0; i < mA[0].Count; i++)
-            {
-                _mC.Add(new List<int>());
-                for (var j = 0; j < mA.Count; j++)
-                    _mC[i].Add(0);
-            }
-
             for (var i = 0; i < mA.Count; i++)
                 for (var j = 0; j < mA[i].Count; j++)
                     _freeCells.Add(new FreeCell(i, j));
@@ -113,7 +112,25 @@ namespace T7_Computer_Systems_Lab1
 
         public List<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
         {
-            return mA;
+            CommonInitialisation(unitsNumber);
+            _multiplication = true;
+
+            // Result matrix initialisation -----------------------
+            for (var i = 0; i < mA.Count; i++)
+            {
+                _mC.Add(new List<int>());
+                for (var j = 0; j < mB[0].Count; j++)
+                    _mC[i].Add(0);
+            }
+
+            for (var i = 0; i < _mC.Count; i++)
+                for (var j = 0; j < _mC[i].Count; j++)
+                    _freeCells.Add(new FreeCell(i, j));
+
+            _mA = mA;
+            _mB = mB;
+
+            return DoWork();
         }
 
         public void print_matrix(List<List<int>> matrix)
