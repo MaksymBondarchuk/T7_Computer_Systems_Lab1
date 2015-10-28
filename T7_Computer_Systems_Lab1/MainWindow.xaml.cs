@@ -50,33 +50,33 @@ namespace T7_Computer_Systems_Lab1
 
         private void bTransp_Click(object sender, RoutedEventArgs e)
         {
-            tbMxTranspon.Visibility = Visibility.Visible;
+            tbMx2.Visibility = Visibility.Visible;
             var res = dv.Transpose(matrix, unit);
-            print_Matrix(res, tbMxTranspon);
+            print_Matrix(res, tbMx2);
         }
 
         private void lColl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string s = ((Convert.ToInt32(lColl.Content.ToString()) + 1) % 10).ToString();
-            lColl.Content = (s == "0")?  "1" : s;
+            string s = ((Convert.ToInt32(lCollMx1.Content.ToString()) + 1) % 10).ToString();
+            lCollMx1.Content = (s == "0")?  "1" : s;
         }
 
         private void lColl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string s = (Convert.ToInt32(lColl.Content.ToString()) - 1).ToString();
-            lColl.Content = (s == "0") ? "9" : s;
+            string s = (Convert.ToInt32(lCollMx1.Content.ToString()) - 1).ToString();
+            lCollMx1.Content = (s == "0") ? "9" : s;
         }
 
         private void lRow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string s = ((Convert.ToInt32(lRow.Content.ToString()) + 1) % 10).ToString();
-            lRow.Content = (s == "0") ? "1" : s;
+            string s = ((Convert.ToInt32(lRowMx1.Content.ToString()) + 1) % 10).ToString();
+            lRowMx1.Content = (s == "0") ? "1" : s;
         }
 
         private void lRow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            string s = (Convert.ToInt32(lRow.Content.ToString()) - 1).ToString();
-            lRow.Content = (s == "0") ? "9" : s;
+            string s = (Convert.ToInt32(lRowMx1.Content.ToString()) - 1).ToString();
+            lRowMx1.Content = (s == "0") ? "9" : s;
         }
 
         private void lNumberOfProc_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -93,11 +93,11 @@ namespace T7_Computer_Systems_Lab1
 
         private void tbMxGenerate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            tbMxGenerate.Visibility = Visibility.Visible;
+            tbMx1.Visibility = Visibility.Visible;
             bTsp.Visibility = Visibility.Visible;
 
-            int coll = Convert.ToInt32(lColl.Content);
-            int row = Convert.ToInt32(lRow.Content);
+            int coll = Convert.ToInt32(lCollMx1.Content);
+            int row = Convert.ToInt32(lRowMx1.Content);
             unit = Convert.ToInt32(lNumberOfProc.Content);
 
             //Random rand = new Random();
@@ -130,7 +130,7 @@ namespace T7_Computer_Systems_Lab1
             dv = new Divided();
 
 
-            print_Matrix(matrix, tbMxGenerate);
+            print_Matrix(matrix, tbMx1);
         }
     }
 }
