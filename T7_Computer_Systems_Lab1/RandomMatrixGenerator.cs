@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace T7_Computer_Systems_Lab1
 {
@@ -10,13 +7,13 @@ namespace T7_Computer_Systems_Lab1
     {
         public List<List<int>> Generate(int rows, int cols)
         {
-            List<List<int>> matrix = new List<List<int>>();
-            Random rand = new Random();
+            var matrix = new List<List<int>>();
+            var rand = new Random();
 
-            for (int i = 0; i < rows; i++)
+            for (var i = 0; i < rows; i++)
             {
                 matrix.Add(new List<int>(cols));
-                for (int j = 0; j < cols; j++)
+                for (var j = 0; j < cols; j++)
                     matrix[i].Add(rand.Next(-9, 10));
             }
 

@@ -90,7 +90,7 @@ namespace T7_Computer_Systems_Lab1
         public List<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
         {
             CommonInitialisation(unitsNumber);
-            _transposition = true;
+            _addition = true;
 
             // Result matrix initialisation -----------------------
             for (var i = 0; i < mA[0].Count; i++)
