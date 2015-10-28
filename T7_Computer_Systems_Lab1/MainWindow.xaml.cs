@@ -50,9 +50,10 @@ namespace T7_Computer_Systems_Lab1
 
         private void bTransp_Click(object sender, RoutedEventArgs e)
         {
-            tbMx2.Visibility = Visibility.Visible;
+            //tbMxRes.Visibility = Visibility.Visible;
+            tbMx2.Text = tbMx1.Text;
             var res = dv.Transpose(matrix, unit);
-            print_Matrix(res, tbMx2);
+            print_Matrix(res, tbMxRes);
         }
 
         private void lColl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
