@@ -20,6 +20,7 @@ namespace T7_Computer_Systems_Lab1
         private readonly List<int> _freeRows = new List<int>();
 
         public TimeSpan Time;
+        DateTime _startTime;
 
         public class FreeCell
         {
@@ -41,42 +42,47 @@ namespace T7_Computer_Systems_Lab1
             while (true)
             {
                 if (_addition || _multiplication)
+                {
+                    FreeCell cell;
                     lock (_freeCells)
                     {
                         if (_freeCells.Count == 0)
                             return;
-
-                        if (_addition)
-                            _mC[_freeCells[0].Row][_freeCells[0].Coll] = _mA[_freeCells[0].Row][_freeCells[0].Coll] +
-                                                                         _mB[_freeCells[0].Row][_freeCells[0].Coll];
-                        else
-                            for (var i = 0; i < _mA[0].Count; i++)
-                                _mC[_freeCells[0].Row][_freeCells[0].Coll] += _mA[_freeCells[0].Row][i] *
-                                                                     _mB[i][_freeCells[0].Coll];
-
+                        cell = _freeCells[0];
                         _freeCells.RemoveAt(0);
-                        Thread.Sleep(TactLength);
-                        continue;
                     }
+
+                    if (_addition)
+                        _mC[cell.Row][cell.Coll] = _mA[cell.Row][cell.Coll] + _mB[cell.Row][cell.Coll];
+                    else
+                        for (var i = 0; i < _mA[0].Count; i++)
+                            _mC[cell.Row][cell.Coll] += _mA[cell.Row][i] * _mB[i][cell.Coll];
+
+                    Thread.Sleep(TactLength);
+                    continue;
+                }
 
 
                 if (!_transposition) continue;
+                int row;
                 lock (_freeRows)
                 {
                     if (_freeRows.Count == 0)
                         return;
-
-                    for (var i = 0; i < _mA[_freeRows[0]].Count; i++)
-                        _mC[i][_freeRows[0]] = _mA[_freeRows[0]][i];
-
+                    row = _freeRows[0];
                     _freeRows.RemoveAt(0);
-                    Thread.Sleep(TactLength);
                 }
+
+                for (var i = 0; i < _mA[row].Count; i++)
+                    _mC[i][row] = _mA[row][i];
+
+                Thread.Sleep(TactLength);
             }
         }
 
         public List<List<int>> Transpose(List<List<int>> mA, int unitsNumber)
         {
+            _startTime = DateTime.Now;
             CommonInitialisation(unitsNumber);
             _transposition = true;
 
@@ -98,6 +104,7 @@ namespace T7_Computer_Systems_Lab1
 
         public List<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
         {
+            _startTime = DateTime.Now;
             CommonInitialisation(unitsNumber);
             _addition = true;
 
@@ -114,6 +121,7 @@ namespace T7_Computer_Systems_Lab1
 
         public List<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
         {
+            _startTime = DateTime.Now;
             CommonInitialisation(unitsNumber);
             _multiplication = true;
 
@@ -160,7 +168,7 @@ namespace T7_Computer_Systems_Lab1
 
         private List<List<int>> DoWork()
         {
-            var startTime = DateTime.Now;
+
 
             foreach (var t in _units)
                 t.Start();
@@ -168,7 +176,7 @@ namespace T7_Computer_Systems_Lab1
             foreach (var t in _units)
                 t.Join();
 
-            Time = DateTime.Now - startTime;
+            Time = DateTime.Now - _startTime;
             return _mC;
         }
     }
