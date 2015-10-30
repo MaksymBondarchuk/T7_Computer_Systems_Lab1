@@ -168,8 +168,6 @@ namespace T7_Computer_Systems_Lab1
 
         private List<List<int>> DoWork()
         {
-
-
             foreach (var t in _units)
                 t.Start();
 
