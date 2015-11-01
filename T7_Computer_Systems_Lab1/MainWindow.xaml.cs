@@ -148,8 +148,8 @@ namespace T7_Computer_Systems_Lab1
 
         private void tbMx2_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var coll = Convert.ToInt32(lCollMx1.Content);
-            var row = Convert.ToInt32(lRowMx1.Content);
+            var coll = Convert.ToInt32(lCollMx2.Content);
+            var row = Convert.ToInt32(lRowMx2.Content);
             var rmg = new RandomMatrixGenerator();
 
             _matrixB = rmg.Generate(row, coll);
@@ -161,9 +161,18 @@ namespace T7_Computer_Systems_Lab1
             Dv = new Divided();
             Unit = Convert.ToInt32(lNumberOfProc.Content);
 
-            if ((string) lType.Content == "Transposition")
-                print_Matrix(Dv.Transpose(_matrixA, Unit), tbMxRes);
-
+            switch ((string) lType.Content)
+            {
+                case "Transposition":
+                    print_Matrix(Dv.Transpose(_matrixA, Unit), tbMxRes);
+                    break;
+                case "Addition":
+                    print_Matrix(Dv.Add(_matrixA, _matrixB, Unit), tbMxRes);
+                    break;
+                case "Multiplication":
+                    print_Matrix(Dv.Multiplicate(_matrixA, _matrixB, Unit), tbMxRes);
+                    break;
+            }
         }
     }
 }
