@@ -35,146 +35,164 @@ namespace T7_Computer_Systems_Lab1
 
         private void lColl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var s = ((Convert.ToInt32(lCollMx1.Content.ToString()) + 1) % 10).ToString();
-            lCollMx1.Content = (s == "0")?  "1" : s;
-            if ((string) lType.Content == "Addition")
-                lCollMx2.Content = lCollMx1.Content;
+            var s = ((Convert.ToInt32(LCollMx1.Content.ToString()) + 1) % 10).ToString();
+            LCollMx1.Content = (s == "0")?  "1" : s;
+            if ((string) LType.Content == "Addition")
+                LCollMx2.Content = LCollMx1.Content;
+            set_matrix(LCollMx1, LRowMx1, TbMx1);
+            set_matrix(LCollMx2, LRowMx2, TbMx2);
         }
 
         private void lColl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var s = (Convert.ToInt32(lCollMx1.Content.ToString()) - 1).ToString();
-            lCollMx1.Content = (s == "0") ? "9" : s;
-            if ((string) lType.Content == "Addition")
-                lCollMx2.Content = lCollMx1.Content;
+            var s = (Convert.ToInt32(LCollMx1.Content.ToString()) - 1).ToString();
+            LCollMx1.Content = (s == "0") ? "9" : s;
+            if ((string) LType.Content == "Addition")
+                LCollMx2.Content = LCollMx1.Content;
+            set_matrix(LCollMx1, LRowMx1, TbMx1);
+            set_matrix(LCollMx2, LRowMx2, TbMx2);
         }
 
         private void lRow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var s = ((Convert.ToInt32(lRowMx1.Content.ToString()) + 1) % 10).ToString();
-            lRowMx1.Content = (s == "0") ? "1" : s;
-            if ((string) lType.Content != "Addition")
-                lCollMx2.Content = lRowMx1.Content;
+            var s = ((Convert.ToInt32(LRowMx1.Content.ToString()) + 1) % 10).ToString();
+            LRowMx1.Content = (s == "0") ? "1" : s;
+            if ((string) LType.Content != "Addition")
+                LCollMx2.Content = LRowMx1.Content;
             else
-                lRowMx2.Content = lRowMx1.Content;
+                LRowMx2.Content = LRowMx1.Content;
+            set_matrix(LCollMx1, LRowMx1, TbMx1);
+            set_matrix(LCollMx2, LRowMx2, TbMx2);
         }
 
         private void lRow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var s = (Convert.ToInt32(lRowMx1.Content.ToString()) - 1).ToString();
-            lRowMx1.Content = (s == "0") ? "9" : s;
-            if ((string) lType.Content != "Addition")
-                lCollMx2.Content = lRowMx1.Content;
+            var s = (Convert.ToInt32(LRowMx1.Content.ToString()) - 1).ToString();
+            LRowMx1.Content = (s == "0") ? "9" : s;
+            if ((string) LType.Content != "Addition")
+                LCollMx2.Content = LRowMx1.Content;
             else
-                lRowMx2.Content = lRowMx1.Content;
+                LRowMx2.Content = LRowMx1.Content;
+            set_matrix(LCollMx1, LRowMx1, TbMx1);
+            set_matrix(LCollMx2, LRowMx2, TbMx2);
         }
 
         private void lNumberOfProc_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var s = ((Convert.ToInt32(lNumberOfProc.Content.ToString()) + 1) % 10).ToString();
-            lNumberOfProc.Content = (s == "0") ? "1" : s;
+            var s = ((Convert.ToInt32(LNumberOfProc.Content.ToString()) + 1) % 10).ToString();
+            LNumberOfProc.Content = (s == "0") ? "1" : s;
         }
 
         private void lNumberOfProc_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var s = (Convert.ToInt32(lNumberOfProc.Content.ToString()) - 1).ToString();
-            lNumberOfProc.Content = (s == "0") ? "9" : s;
+            var s = (Convert.ToInt32(LNumberOfProc.Content.ToString()) - 1).ToString();
+            LNumberOfProc.Content = (s == "0") ? "9" : s;
         }
 
         private void tbMxGenerate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var row = Convert.ToInt32(lCollMx1.Content);
-            var coll = Convert.ToInt32(lRowMx1.Content);
-            var rmg = new RandomMatrixGenerator();
-
-            _matrixA = rmg.Generate(row, coll);
-            print_Matrix(_matrixA, tbMx1);
+            set_matrix(LCollMx1, LRowMx1, TbMx1);
         }
 
         private void bTsp_Click(object sender, RoutedEventArgs e)
         {
-            bCount.IsEnabled = true;
-            tbMx2.Visibility = Visibility.Hidden;
+            BCount.IsEnabled = true;
+            TbMx2.Visibility = Visibility.Hidden;
 
-            gbMx2.Visibility = Visibility.Hidden;
-            lCollMx2.Visibility = Visibility.Hidden;
-            lSignOfMultMx2.Visibility = Visibility.Hidden;
-            lRowMx2.Visibility = Visibility.Hidden;
+            GbMx2.Visibility = Visibility.Hidden;
+            LCollMx2.Visibility = Visibility.Hidden;
+            LSignOfMultMx2.Visibility = Visibility.Hidden;
+            LRowMx2.Visibility = Visibility.Hidden;
 
-            lType.Content = "Transposition";
-            
+            LType.Content = "Transposition";
+            set_matrix(LCollMx1, LRowMx1, TbMx1);
+            set_matrix(LCollMx2, LRowMx2, TbMx2);
+
         }
 
         private void bAdd_Click(object sender, RoutedEventArgs e)
         {
-            bCount.IsEnabled = true;
-            tbMx2.Visibility = Visibility.Visible;
+            BCount.IsEnabled = true;
+            TbMx2.Visibility = Visibility.Visible;
 
-            gbMx2.Visibility = Visibility.Hidden;
-            lCollMx2.Visibility = Visibility.Hidden;
-            lSignOfMultMx2.Visibility = Visibility.Hidden;
-            lRowMx2.Visibility = Visibility.Hidden;
+            GbMx2.Visibility = Visibility.Hidden;
+            LCollMx2.Visibility = Visibility.Hidden;
+            LSignOfMultMx2.Visibility = Visibility.Hidden;
+            LRowMx2.Visibility = Visibility.Hidden;
 
-            lType.Content = "Addition";
+            LType.Content = "Addition";
 
-            lCollMx2.Content = lCollMx1.Content;
-            lRowMx2.Content = lRowMx1.Content;
+            LCollMx2.Content = LCollMx1.Content;
+            LRowMx2.Content = LRowMx1.Content;
+
+            set_matrix(LCollMx1, LRowMx1, TbMx1);
+            set_matrix(LCollMx2, LRowMx2, TbMx2);
         }
 
         private void bMlt_Click(object sender, RoutedEventArgs e)
         {
-            bCount.IsEnabled = true;
-            tbMx2.Visibility = Visibility.Visible;
+            BCount.IsEnabled = true;
+            TbMx2.Visibility = Visibility.Visible;
 
-            gbMx2.Visibility = Visibility.Visible;
-            lCollMx2.Visibility = Visibility.Visible;
-            lSignOfMultMx2.Visibility = Visibility.Visible;
-            lRowMx2.Visibility = Visibility.Visible;
+            GbMx2.Visibility = Visibility.Visible;
+            LCollMx2.Visibility = Visibility.Visible;
+            LSignOfMultMx2.Visibility = Visibility.Visible;
+            LRowMx2.Visibility = Visibility.Visible;
 
-            lType.Content = "Multiplication";
+            LType.Content = "Multiplication";
 
-            lCollMx2.Content = lRowMx1.Content;
+            LCollMx2.Content = LRowMx1.Content;
+
+            set_matrix(LCollMx1, LRowMx1, TbMx1);
+            set_matrix(LCollMx2, LRowMx2, TbMx2);
         }
 
         private void lRowMx2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var s = ((Convert.ToInt32(lRowMx2.Content.ToString()) + 1) % 10).ToString();
-            lRowMx2.Content = (s == "0") ? "1" : s;
+            var s = ((Convert.ToInt32(LRowMx2.Content.ToString()) + 1) % 10).ToString();
+            LRowMx2.Content = (s == "0") ? "1" : s;
+            set_matrix(LCollMx2, LRowMx2, TbMx2);
         }
 
         private void lRowMx2_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            var s = (Convert.ToInt32(lRowMx2.Content.ToString()) - 1).ToString();
-            lRowMx2.Content = (s == "0") ? "9" : s;
+            var s = (Convert.ToInt32(LRowMx2.Content.ToString()) - 1).ToString();
+            LRowMx2.Content = (s == "0") ? "9" : s;
+            set_matrix(LCollMx2, LRowMx2, TbMx2);
         }
 
         private void tbMx2_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var row = Convert.ToInt32(lCollMx2.Content);
-            var coll = Convert.ToInt32(lRowMx2.Content);
-            var rmg = new RandomMatrixGenerator();
-
-            _matrixB = rmg.Generate(row, coll);
-            print_Matrix(_matrixB, tbMx2);
+            set_matrix(LCollMx2, LRowMx2, TbMx2);
         }
 
         private void bCount_Click(object sender, RoutedEventArgs e)
         {
             Dv = new Divided();
-            Unit = Convert.ToInt32(lNumberOfProc.Content);
+            Unit = Convert.ToInt32(LNumberOfProc.Content);
 
-            switch ((string) lType.Content)
+            switch ((string) LType.Content)
             {
                 case "Transposition":
-                    print_Matrix(Dv.Transpose(_matrixA, Unit), tbMxRes);
+                    print_Matrix(Dv.Transpose(_matrixA, Unit), TbMxRes);
                     break;
                 case "Addition":
-                    print_Matrix(Dv.Add(_matrixA, _matrixB, Unit), tbMxRes);
+                    print_Matrix(Dv.Add(_matrixA, _matrixB, Unit), TbMxRes);
                     break;
                 case "Multiplication":
-                    print_Matrix(Dv.Multiplicate(_matrixA, _matrixB, Unit), tbMxRes);
+                    print_Matrix(Dv.Multiplicate(_matrixA, _matrixB, Unit), TbMxRes);
                     break;
             }
+        }
+
+        void set_matrix(ContentControl lColl, ContentControl lRow, TextBox tbMx)
+        {
+            var row = Convert.ToInt32(lColl.Content);
+            var coll = Convert.ToInt32(lRow.Content);
+            var rmg = new RandomMatrixGenerator();
+
+            _matrixB = rmg.Generate(row, coll);
+            print_Matrix(_matrixB, tbMx);
         }
     }
 }
