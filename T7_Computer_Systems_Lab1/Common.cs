@@ -36,15 +36,13 @@ namespace T7_Computer_Systems_Lab1
 
 
                 if (!Transposition) continue;
-                int row;
-                lock (FreeRows)
-                {
-                    if (FreeRows.Count == 0)
-                        return;
-                    row = FreeRows[0];
-                    FreeRows.RemoveAt(0);
-                }
 
+                if (_freeRowsForUnits[myId].Count == 0)
+                    return;
+
+                var row = _freeRowsForUnits[myId][0];
+                _freeRowsForUnits[myId].RemoveAt(0);
+                
                 for (var i = 0; i < Ma[row].Count; i++)
                     Mc[i][row] = Ma[row][i];
 
@@ -62,7 +60,13 @@ namespace T7_Computer_Systems_Lab1
             Mb = mB;
             Mc = mA;
 
-            InitialiseFreeCellsForUnits(unitsNumber);
+            for (var i = 0; i < unitsNumber; i++)
+                _freeCellsForUnits.Add(new List<FreeCell>());
+
+            var currentUnit = 0;
+            for (var i = 0; i < Ma.Count; i++)
+                for (var j = 0; j < Ma[i].Count; j++)
+                    _freeCellsForUnits[currentUnit++ % unitsNumber].Add(new FreeCell(i, j));
 
             return DoWork();
         }
@@ -84,7 +88,13 @@ namespace T7_Computer_Systems_Lab1
             Ma = mA;
             Mb = mB;
 
-            InitialiseFreeCellsForUnits(unitsNumber);
+            for (var i = 0; i < unitsNumber; i++)
+                _freeCellsForUnits.Add(new List<FreeCell>());
+
+            var currentUnit = 0;
+            for (var i = 0; i < Mc.Count; i++)
+                for (var j = 0; j < Mc[i].Count; j++)
+                    _freeCellsForUnits[currentUnit++ % unitsNumber].Add(new FreeCell(i, j));
 
             return DoWork();
         }
@@ -103,10 +113,14 @@ namespace T7_Computer_Systems_Lab1
                     Mc[i].Add(0);
             }
 
-            for (var i = 0; i < mA.Count; i++)
-                FreeRows.Add(i);
-
             Ma = mA;
+
+            for (var i = 0; i < unitsNumber; i++)
+                _freeRowsForUnits.Add(new List<int>());
+
+            var currentUnit = 0;
+            for (var i = 0; i < Ma.Count; i++)
+                _freeRowsForUnits[currentUnit++ % unitsNumber].Add(i);
 
             return DoWork();
         }
@@ -123,17 +137,6 @@ namespace T7_Computer_Systems_Lab1
 
             for (var i = 0; i < unitsNumber; i++)
                 Units.Add(new Thread(unit_work) { Name = i.ToString() });
-        }
-
-        private void InitialiseFreeCellsForUnits(int unitsNumber)
-        {
-            for (var i = 0; i < unitsNumber; i++)
-                _freeCellsForUnits.Add(new List<FreeCell>());
-
-            var currentUnit = 0;
-            for (var i = 0; i < Ma.Count; i++)
-                for (var j = 0; j < Ma[i].Count; j++)
-                    _freeCellsForUnits[currentUnit++ % unitsNumber].Add(new FreeCell(i, j));
         }
     }
 }
