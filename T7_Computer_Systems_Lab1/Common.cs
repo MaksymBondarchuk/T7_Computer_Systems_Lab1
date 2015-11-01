@@ -50,7 +50,7 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        public new List<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
+        public new List<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
             CommonInitialisation(unitsNumber);
@@ -71,7 +71,7 @@ namespace T7_Computer_Systems_Lab1
             return DoWork();
         }
 
-        public new List<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
+        public new List<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
             CommonInitialisation(unitsNumber);
@@ -99,7 +99,7 @@ namespace T7_Computer_Systems_Lab1
             return DoWork();
         }
 
-        public new List<List<int>> Transpose(List<List<int>> mA, int unitsNumber)
+        public new List<List<int>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
             CommonInitialisation(unitsNumber);

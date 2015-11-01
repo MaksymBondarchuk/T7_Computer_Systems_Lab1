@@ -21,6 +21,8 @@ namespace T7_Computer_Systems_Lab1
         public TimeSpan Time;
         protected DateTime StartTime;
 
+        protected int Alpha;
+
         protected class FreeCell
         {
             public int Row;
@@ -79,7 +81,7 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        public List<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
+        public List<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
             CommonInitialisation(unitsNumber);
@@ -96,7 +98,7 @@ namespace T7_Computer_Systems_Lab1
             return DoWork();
         }
 
-        public List<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
+        public List<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
             CommonInitialisation(unitsNumber);
@@ -120,7 +122,7 @@ namespace T7_Computer_Systems_Lab1
             return DoWork();
         }
 
-        public List<List<int>> Transpose(List<List<int>> mA, int unitsNumber)
+        public List<List<int>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
             CommonInitialisation(unitsNumber);
