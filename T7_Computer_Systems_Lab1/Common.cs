@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace T7_Computer_Systems_Lab1
 {
-    class Common : Divided
+    public class Common : Divided
     {
         private readonly List<List<int>> _freeRowsForUnits = new List<List<int>>();
         private readonly List<List<FreeCell>> _freeCellsForUnits = new List<List<FreeCell>>();
@@ -12,19 +12,17 @@ namespace T7_Computer_Systems_Lab1
         public new void unit_work()
         {
             //Console.WriteLine(Thread.CurrentThread.Name + " started");
+            var myId = Convert.ToInt32(Thread.CurrentThread.Name);
 
             while (true)
             {
                 if (Addition || Multiplication)
                 {
-                    FreeCell cell;
-                    lock (FreeCells)
-                    {
-                        if (FreeCells.Count == 0)
-                            return;
-                        cell = FreeCells[0];
-                        FreeCells.RemoveAt(0);
-                    }
+                    if (_freeCellsForUnits[myId].Count == 0)
+                        return;
+
+                    var cell = _freeCellsForUnits[myId][0];
+                    _freeCellsForUnits[myId].RemoveAt(0);
 
                     if (Addition)
                         Mc[cell.Row][cell.Coll] = Ma[cell.Row][cell.Coll] + Mb[cell.Row][cell.Coll];
@@ -60,22 +58,82 @@ namespace T7_Computer_Systems_Lab1
             CommonInitialisation(unitsNumber);
             Addition = true;
 
-            var allCells = mA.Count + mA[0].Count;
-            var cellsForOneUnit = Convert.ToInt32(allCells/unitsNumber);
-            if (unitsNumber*cellsForOneUnit != allCells)
-                cellsForOneUnit++;
-
-
-
-            for (var i = 0; i < mA.Count; i++)
-                for (var j = 0; j < mA[i].Count; j++)
-                    FreeCells.Add(new FreeCell(i, j));
-
             Ma = mA;
             Mb = mB;
             Mc = mA;
 
+            InitialiseFreeCellsForUnits(unitsNumber);
+
             return DoWork();
+        }
+
+        public new List<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
+        {
+            StartTime = DateTime.Now;
+            CommonInitialisation(unitsNumber);
+            Multiplication = true;
+
+            // Result matrix initialisation -----------------------
+            for (var i = 0; i < mA.Count; i++)
+            {
+                Mc.Add(new List<int>());
+                for (var j = 0; j < mB[0].Count; j++)
+                    Mc[i].Add(0);
+            }
+
+            Ma = mA;
+            Mb = mB;
+
+            InitialiseFreeCellsForUnits(unitsNumber);
+
+            return DoWork();
+        }
+
+        public new List<List<int>> Transpose(List<List<int>> mA, int unitsNumber)
+        {
+            StartTime = DateTime.Now;
+            CommonInitialisation(unitsNumber);
+            Transposition = true;
+
+            // Result matrix initialisation -----------------------
+            for (var i = 0; i < mA[0].Count; i++)
+            {
+                Mc.Add(new List<int>());
+                for (var j = 0; j < mA.Count; j++)
+                    Mc[i].Add(0);
+            }
+
+            for (var i = 0; i < mA.Count; i++)
+                FreeRows.Add(i);
+
+            Ma = mA;
+
+            return DoWork();
+        }
+
+        protected new void CommonInitialisation(int unitsNumber)
+        {
+            Mc.Clear();
+            _freeRowsForUnits.Clear();
+            _freeCellsForUnits.Clear();
+            Units.Clear();
+            Addition = false;
+            Transposition = false;
+            Multiplication = false;
+
+            for (var i = 0; i < unitsNumber; i++)
+                Units.Add(new Thread(unit_work) { Name = i.ToString() });
+        }
+
+        private void InitialiseFreeCellsForUnits(int unitsNumber)
+        {
+            for (var i = 0; i < unitsNumber; i++)
+                _freeCellsForUnits.Add(new List<FreeCell>());
+
+            var currentUnit = 0;
+            for (var i = 0; i < Ma.Count; i++)
+                for (var j = 0; j < Ma[i].Count; j++)
+                    _freeCellsForUnits[currentUnit++ % unitsNumber].Add(new FreeCell(i, j));
         }
     }
 }

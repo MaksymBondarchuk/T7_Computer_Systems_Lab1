@@ -6,7 +6,7 @@ namespace T7_Computer_Systems_Lab1
 {
     public class Divided
     {
-        private readonly List<Thread> _units = new List<Thread>();
+        protected readonly List<Thread> Units = new List<Thread>();
         protected List<List<int>> Ma;
         protected List<List<int>> Mb;
         protected List<List<int>> Mc = new List<List<int>>();
@@ -157,20 +157,21 @@ namespace T7_Computer_Systems_Lab1
         {
             Mc.Clear();
             FreeRows.Clear();
-            _units.Clear();
+            Units.Clear();
             Addition = false;
             Transposition = false;
+            Multiplication = false;
 
             for (var i = 0; i < unitsNumber; i++)
-                _units.Add(new Thread(unit_work) { Name = i.ToString() });
+                Units.Add(new Thread(unit_work) { Name = i.ToString() });
         }
 
         protected List<List<int>> DoWork()
         {
-            foreach (var t in _units)
+            foreach (var t in Units)
                 t.Start();
 
-            foreach (var t in _units)
+            foreach (var t in Units)
                 t.Join();
 
             Time = DateTime.Now - StartTime;
