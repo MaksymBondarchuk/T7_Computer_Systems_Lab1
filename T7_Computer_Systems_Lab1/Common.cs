@@ -56,9 +56,9 @@ namespace T7_Computer_Systems_Lab1
             CommonInitialisation(unitsNumber);
             Addition = true;
 
-            Ma = mA;
-            Mb = mB;
-            Mc = mA;
+            Ma = CopyMatrix(mA);
+            Mb = CopyMatrix(mB);
+            Mc = CopyMatrix(mA);
 
             for (var i = 0; i < unitsNumber; i++)
                 _freeCellsForUnits.Add(new List<FreeCell>());
@@ -85,8 +85,8 @@ namespace T7_Computer_Systems_Lab1
                     Mc[i].Add(0);
             }
 
-            Ma = mA;
-            Mb = mB;
+            Ma = CopyMatrix(mA);
+            Mb = CopyMatrix(mB);
 
             for (var i = 0; i < unitsNumber; i++)
                 _freeCellsForUnits.Add(new List<FreeCell>());
@@ -113,7 +113,7 @@ namespace T7_Computer_Systems_Lab1
                     Mc[i].Add(0);
             }
 
-            Ma = mA;
+            Ma = CopyMatrix(mA);
 
             for (var i = 0; i < unitsNumber; i++)
                 _freeRowsForUnits.Add(new List<int>());
