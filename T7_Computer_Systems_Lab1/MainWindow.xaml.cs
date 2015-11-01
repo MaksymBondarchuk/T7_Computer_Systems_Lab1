@@ -97,6 +97,8 @@ namespace T7_Computer_Systems_Lab1
 
         private void bTsp_Click(object sender, RoutedEventArgs e)
         {
+            LTime.Content = "<NONE>";
+            TbMxRes.Text = "";
             BCount.IsEnabled = true;
             TbMx1.Visibility = Visibility.Visible;
             TbMx2.Visibility = Visibility.Hidden;
@@ -114,6 +116,8 @@ namespace T7_Computer_Systems_Lab1
 
         private void bAdd_Click(object sender, RoutedEventArgs e)
         {
+            LTime.Content = "<NONE>";
+            TbMxRes.Text = "";
             BCount.IsEnabled = true;
             TbMx1.Visibility = Visibility.Visible;
             TbMx2.Visibility = Visibility.Visible;
@@ -134,6 +138,8 @@ namespace T7_Computer_Systems_Lab1
 
         private void bMlt_Click(object sender, RoutedEventArgs e)
         {
+            LTime.Content = "<NONE>";
+            TbMxRes.Text = "";
             BCount.IsEnabled = true;
             TbMx1.Visibility = Visibility.Visible;
             TbMx2.Visibility = Visibility.Visible;
