@@ -12,6 +12,7 @@ namespace T7_Computer_Systems_Lab1
     public partial class MainWindow
     {
         public Divided Dv { get; private set; }
+        public Common Cm { get; private set; }
         List<List<int>> _matrixA, _matrixB;
         public int Unit { get; private set; }
 
@@ -169,20 +170,35 @@ namespace T7_Computer_Systems_Lab1
         private void bCount_Click(object sender, RoutedEventArgs e)
         {
             Dv = new Divided();
+            Cm = new Common();
             Unit = Convert.ToInt32(LNumberOfProc.Content);
 
-            switch ((string) LType.Content)
-            {
-                case "Transposition":
-                    print_Matrix(Dv.Transpose(_matrixA, Unit), TbMxRes);
-                    break;
-                case "Addition":
-                    print_Matrix(Dv.Add(_matrixA, _matrixB, Unit), TbMxRes);
-                    break;
-                case "Multiplication":
-                    print_Matrix(Dv.Multiplicate(_matrixA, _matrixB, Unit), TbMxRes);
-                    break;
-            }
+            if (RbDv.IsChecked != null && (bool) RbDv.IsChecked)
+                switch ((string) LType.Content)
+                {
+                    case "Transposition":
+                        print_Matrix(Dv.Transpose(_matrixA, Unit), TbMxRes);
+                        break;
+                    case "Addition":
+                        print_Matrix(Dv.Add(_matrixA, _matrixB, Unit), TbMxRes);
+                        break;
+                    case "Multiplication":
+                        print_Matrix(Dv.Multiplicate(_matrixA, _matrixB, Unit), TbMxRes);
+                        break;
+                }
+            else
+                switch ((string)LType.Content)
+                {
+                    case "Transposition":
+                        print_Matrix(Cm.Transpose(_matrixA, Unit), TbMxRes);
+                        break;
+                    case "Addition":
+                        print_Matrix(Cm.Add(_matrixA, _matrixB, Unit), TbMxRes);
+                        break;
+                    case "Multiplication":
+                        print_Matrix(Cm.Multiplicate(_matrixA, _matrixB, Unit), TbMxRes);
+                        break;
+                }
         }
 
         void set_matrix1()
