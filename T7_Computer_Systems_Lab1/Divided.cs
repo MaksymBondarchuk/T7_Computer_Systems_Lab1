@@ -34,7 +34,7 @@ namespace T7_Computer_Systems_Lab1
         }
         protected readonly List<FreeCell> FreeCells = new List<FreeCell>();
 
-        public void unit_work()
+        public void UnitWork()
         {
             //Console.WriteLine(Thread.CurrentThread.Name + " started");
 
@@ -163,7 +163,7 @@ namespace T7_Computer_Systems_Lab1
             Multiplication = false;
 
             for (var i = 0; i < unitsNumber; i++)
-                Units.Add(new Thread(unit_work) { Name = i.ToString() });
+                Units.Add(new Thread(UnitWork) { Name = i.ToString() });
         }
 
         protected List<List<int>> DoWork()
