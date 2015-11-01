@@ -39,8 +39,8 @@ namespace T7_Computer_Systems_Lab1
             LCollMx1.Content = (s == "0")?  "1" : s;
             if ((string) LType.Content == "Addition")
                 LCollMx2.Content = LCollMx1.Content;
-            set_matrix(LCollMx1, LRowMx1, TbMx1);
-            set_matrix(LCollMx2, LRowMx2, TbMx2);
+            set_matrix1();
+            set_matrix2();
         }
 
         private void lColl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -49,8 +49,8 @@ namespace T7_Computer_Systems_Lab1
             LCollMx1.Content = (s == "0") ? "9" : s;
             if ((string) LType.Content == "Addition")
                 LCollMx2.Content = LCollMx1.Content;
-            set_matrix(LCollMx1, LRowMx1, TbMx1);
-            set_matrix(LCollMx2, LRowMx2, TbMx2);
+            set_matrix1();
+            set_matrix2();
         }
 
         private void lRow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -61,8 +61,8 @@ namespace T7_Computer_Systems_Lab1
                 LCollMx2.Content = LRowMx1.Content;
             else
                 LRowMx2.Content = LRowMx1.Content;
-            set_matrix(LCollMx1, LRowMx1, TbMx1);
-            set_matrix(LCollMx2, LRowMx2, TbMx2);
+            set_matrix1();
+            set_matrix2();
         }
 
         private void lRow_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -73,8 +73,8 @@ namespace T7_Computer_Systems_Lab1
                 LCollMx2.Content = LRowMx1.Content;
             else
                 LRowMx2.Content = LRowMx1.Content;
-            set_matrix(LCollMx1, LRowMx1, TbMx1);
-            set_matrix(LCollMx2, LRowMx2, TbMx2);
+            set_matrix1();
+            set_matrix2();
         }
 
         private void lNumberOfProc_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -91,7 +91,7 @@ namespace T7_Computer_Systems_Lab1
 
         private void tbMxGenerate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            set_matrix(LCollMx1, LRowMx1, TbMx1);
+            set_matrix1();
         }
 
         private void bTsp_Click(object sender, RoutedEventArgs e)
@@ -105,8 +105,8 @@ namespace T7_Computer_Systems_Lab1
             LRowMx2.Visibility = Visibility.Hidden;
 
             LType.Content = "Transposition";
-            set_matrix(LCollMx1, LRowMx1, TbMx1);
-            set_matrix(LCollMx2, LRowMx2, TbMx2);
+            set_matrix1();
+            set_matrix2();
 
         }
 
@@ -125,8 +125,8 @@ namespace T7_Computer_Systems_Lab1
             LCollMx2.Content = LCollMx1.Content;
             LRowMx2.Content = LRowMx1.Content;
 
-            set_matrix(LCollMx1, LRowMx1, TbMx1);
-            set_matrix(LCollMx2, LRowMx2, TbMx2);
+            set_matrix1();
+            set_matrix2();
         }
 
         private void bMlt_Click(object sender, RoutedEventArgs e)
@@ -143,27 +143,27 @@ namespace T7_Computer_Systems_Lab1
 
             LCollMx2.Content = LRowMx1.Content;
 
-            set_matrix(LCollMx1, LRowMx1, TbMx1);
-            set_matrix(LCollMx2, LRowMx2, TbMx2);
+            set_matrix1();
+            set_matrix2();
         }
 
         private void lRowMx2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var s = ((Convert.ToInt32(LRowMx2.Content.ToString()) + 1) % 10).ToString();
             LRowMx2.Content = (s == "0") ? "1" : s;
-            set_matrix(LCollMx2, LRowMx2, TbMx2);
+            set_matrix2();
         }
 
         private void lRowMx2_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             var s = (Convert.ToInt32(LRowMx2.Content.ToString()) - 1).ToString();
             LRowMx2.Content = (s == "0") ? "9" : s;
-            set_matrix(LCollMx2, LRowMx2, TbMx2);
+            set_matrix2();
         }
 
         private void tbMx2_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            set_matrix(LCollMx2, LRowMx2, TbMx2);
+            set_matrix2();
         }
 
         private void bCount_Click(object sender, RoutedEventArgs e)
@@ -185,14 +185,24 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        void set_matrix(ContentControl lColl, ContentControl lRow, TextBox tbMx)
+        void set_matrix1()
         {
-            var row = Convert.ToInt32(lColl.Content);
-            var coll = Convert.ToInt32(lRow.Content);
+            var row = Convert.ToInt32(LCollMx1.Content);
+            var coll = Convert.ToInt32(LRowMx1.Content);
+            var rmg = new RandomMatrixGenerator();
+
+            _matrixA = rmg.Generate(row, coll);
+            print_Matrix(_matrixA, TbMx1);
+        }
+
+        void set_matrix2()
+        {
+            var row = Convert.ToInt32(LCollMx2.Content);
+            var coll = Convert.ToInt32(LRowMx2.Content);
             var rmg = new RandomMatrixGenerator();
 
             _matrixB = rmg.Generate(row, coll);
-            print_Matrix(_matrixB, tbMx);
+            print_Matrix(_matrixB, TbMx2);
         }
     }
 }
