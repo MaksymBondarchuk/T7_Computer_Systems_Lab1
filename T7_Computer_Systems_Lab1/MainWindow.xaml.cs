@@ -163,6 +163,7 @@ namespace T7_Computer_Systems_Lab1
 
             if ((string) lType.Content == "Transposition")
                 print_Matrix(Dv.Transpose(_matrixA, Unit), tbMxRes);
+
         }
     }
 }
