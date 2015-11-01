@@ -199,6 +199,7 @@ namespace T7_Computer_Systems_Lab1
                         print_Matrix(Cm.Multiplicate(_matrixA, _matrixB, Unit), TbMxRes);
                         break;
                 }
+            LTime.Content = (Dv.Time > Cm.Time)? Dv.Time.ToString() : Cm.Time.ToString();
         }
 
         void set_matrix1()
