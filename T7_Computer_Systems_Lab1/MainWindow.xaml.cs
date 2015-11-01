@@ -12,7 +12,7 @@ namespace T7_Computer_Systems_Lab1
     public partial class MainWindow
     {
         public Divided Dv { get; private set; }
-        List<List<int>> _matrix;
+        List<List<int>> _matrixA, _matrixB;
         public int Unit { get; private set; }
 
         public MainWindow()
@@ -83,44 +83,12 @@ namespace T7_Computer_Systems_Lab1
 
         private void tbMxGenerate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //tbMx1.Visibility = Visibility.Visible;
-            //bTsp.Visibility = Visibility.Visible;
-
             var coll = Convert.ToInt32(lCollMx1.Content);
             var row = Convert.ToInt32(lRowMx1.Content);
-            Unit = Convert.ToInt32(lNumberOfProc.Content);
-
-            //Random rand = new Random();
-            //List<List<int>> matrix = new List<List<int>>();
-
-            //for (int i = 0; i < coll; i++)
-            //{
-            //    matrix.Add(new List<int>(row));
-            //    for (int j = 0; j < row; j++)
-            //        matrix[i].Add(rand.Next(-9, 10));
-            //}
-
-            //tbMxGenerate.Text = "";
-
-            //for (int i = 0; i < coll; i++)
-            //{
-            //    for (int j = 0; j < row; j++)
-            //        tbMxGenerate.Text += matrix[i][j].ToString() + " ";
-            //    tbMxGenerate.Text += "\n";
-            //}
-            //print_Matrix(matrix, tbMxGenerate);
-
-            //MessageBox.Show("Generate");
-
-            //while (tbMxTranspon.Visibility == Visibility.Hidden) ;
-            //System.Threading.Thread.Sleep(10);
-
             var rmg = new RandomMatrixGenerator();
-            _matrix = rmg.Generate(row, coll);
-            Dv = new Divided();
 
-
-            print_Matrix(_matrix, tbMx1);
+            _matrixA = rmg.Generate(row, coll);
+            print_Matrix(_matrixA, tbMx1);
         }
 
         private void bTsp_Click(object sender, RoutedEventArgs e)
@@ -182,12 +150,29 @@ namespace T7_Computer_Systems_Lab1
         {
             var coll = Convert.ToInt32(lCollMx2.Content);
             var row = Convert.ToInt32(lRowMx2.Content);
+            var rmg = new RandomMatrixGenerator();
+
+            _matrixB = rmg.Generate(row, coll);
+            print_Matrix(_matrixB, tbMx2);
+        }
+
+        private void bCount_Click(object sender, RoutedEventArgs e)
+        {
+            Dv = new Divided();
             Unit = Convert.ToInt32(lNumberOfProc.Content);
 
-            var rmg = new RandomMatrixGenerator();
-            _matrix = rmg.Generate(row, coll);
-
-            print_Matrix(_matrix, tbMx2);
+            switch ((string) lType.Content)
+            {
+                case "Transposition":
+                    print_Matrix(Dv.Transpose(_matrixA, Unit), tbMxRes);
+                    break;
+                case "Addition":
+                    print_Matrix(Dv.Add(_matrixA, _matrixB, Unit), tbMxRes);
+                    break;
+                case "Multiplication":
+                    print_Matrix(Dv.Multiplicate(_matrixA, _matrixB, Unit), tbMxRes);
+                    break;
+            }
         }
     }
 }
