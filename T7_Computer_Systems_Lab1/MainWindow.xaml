@@ -18,7 +18,7 @@
         <Label x:Name="lCollMx1" Content="5" HorizontalAlignment="Left" Margin="842,34,0,0" VerticalAlignment="Top" FontSize="24" MouseLeftButtonDown="lColl_MouseLeftButtonDown" MouseRightButtonDown="lColl_MouseRightButtonDown" Foreground="White"/>
         <Label x:Name="lSignOfMultMx1" Content="X" HorizontalAlignment="Left" Margin="865,34,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Segoe UI Black" RenderTransformOrigin="0.304,0.6" Foreground="White"/>
         <Label x:Name="lRowMx1" Content="3" HorizontalAlignment="Left" Margin="892,34,0,0" VerticalAlignment="Top" FontSize="24" MouseLeftButtonDown="lRow_MouseLeftButtonDown" MouseRightButtonDown="lRow_MouseRightButtonDown" Foreground="White"/>
-        <Label x:Name="lNumberOfProc" Content="5" HorizontalAlignment="Left" Margin="569,4,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lNumberOfProc_MouseLeftButtonDown" MouseRightButtonDown="lNumberOfProc_MouseRightButtonDown" Foreground="White"/>
+        <Label x:Name="lNumberOfProc" Content="5" HorizontalAlignment="Left" Margin="790,109,0,0" VerticalAlignment="Top" FontSize="26.667" MouseLeftButtonDown="lNumberOfProc_MouseLeftButtonDown" MouseRightButtonDown="lNumberOfProc_MouseRightButtonDown" Foreground="White"/>
         <TextBox x:Name="tbMx2" Margin="10,0,0,42" TextWrapping="Wrap" RenderTransformOrigin="0.5,0.5" Background="#FF160D51" BorderBrush="#FFB49C9C" IsReadOnly="True" FontFamily="Consolas" Cursor="Arrow" Height="157" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="438" Foreground="White" MouseDoubleClick="tbMx2_MouseDoubleClick"/>
         <Button x:Name="bAdd" Content="+" HorizontalAlignment="Left" Margin="539,53,0,278" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Width="38" Foreground="White" Click="bAdd_Click"/>
         <Button x:Name="bMlt" Content="*" HorizontalAlignment="Left" Margin="582,60,0,271" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Width="38" Foreground="White" Click="bMlt_Click"/>
@@ -26,11 +26,12 @@
         <Label x:Name="lCollMx2" Content="3" HorizontalAlignment="Left" Margin="842,115,0,0" VerticalAlignment="Top" FontSize="24" Foreground="White"/>
         <Label x:Name="lSignOfMultMx2" Content="X" HorizontalAlignment="Left" Margin="865,115,0,0" VerticalAlignment="Top" FontSize="24" FontFamily="Segoe UI Black" RenderTransformOrigin="0.304,0.6" Foreground="White"/>
         <Label x:Name="lRowMx2" Content="3" HorizontalAlignment="Left" Margin="892,115,0,0" VerticalAlignment="Top" FontSize="24" Foreground="White" MouseLeftButtonDown="lRowMx2_MouseLeftButtonDown" MouseRightButtonDown="lRowMx2_MouseRightButtonDown"/>
-        <Label x:Name="lTextUnit" Content="Unit's:" HorizontalAlignment="Left" Margin="496,10,0,0" VerticalAlignment="Top" FontSize="21.333" Foreground="White"/>
-        <RadioButton x:Name="rbM1" Content="Method_1" HorizontalAlignment="Left" Margin="505,127,0,0" VerticalAlignment="Top" FontSize="18.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsChecked="True" Foreground="White"/>
-        <RadioButton x:Name="rbM2" Content="Method_1" HorizontalAlignment="Left" Margin="604,127,0,0" VerticalAlignment="Top" FontSize="18.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
-        <Button x:Name="bCount" Content="Count" HorizontalAlignment="Left" Margin="634,53,0,278" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="White" Width="135" Foreground="White" Click="bCount_Click"/>
-        <Label x:Name="lType" Content="Transposition" HorizontalAlignment="Left" Margin="634,10,0,0" VerticalAlignment="Top" FontSize="21.333" Foreground="White"/>
+        <Label x:Name="lTextUnit" Content="Unit's:" HorizontalAlignment="Left" Margin="722,114,0,0" VerticalAlignment="Top" FontSize="21.333" Foreground="White"/>
+        <RadioButton x:Name="rbM1" Content="Divided&#xD;&#xA;" HorizontalAlignment="Left" Margin="506,127,0,0" VerticalAlignment="Top" FontSize="18.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" IsChecked="True" Foreground="White" Width="87" Height="25"/>
+        <RadioButton x:Name="rbM2" Content="Common&#xD;&#xA;" HorizontalAlignment="Left" Margin="598,127,0,0" VerticalAlignment="Top" FontSize="18.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White" Height="25"/>
+        <Button x:Name="bCount" Content="Count" HorizontalAlignment="Left" Margin="634,53,0,278" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="White" Width="135" Foreground="White" Click="bCount_Click" IsEnabled="False"/>
+        <Label x:Name="lType" Content="&lt;NONE&gt;" HorizontalAlignment="Left" Margin="634,10,0,0" VerticalAlignment="Top" FontSize="21.333" Foreground="White"/>
+        <Label x:Name="lTextType" Content="Operation:" HorizontalAlignment="Left" Margin="506,10,0,0" VerticalAlignment="Top" FontSize="21.333" Foreground="White"/>
 
     </Grid>
 </Window>

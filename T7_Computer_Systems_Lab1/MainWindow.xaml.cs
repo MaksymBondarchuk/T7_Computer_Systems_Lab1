@@ -83,8 +83,8 @@ namespace T7_Computer_Systems_Lab1
 
         private void tbMxGenerate_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var coll = Convert.ToInt32(lCollMx1.Content);
-            var row = Convert.ToInt32(lRowMx1.Content);
+            var row = Convert.ToInt32(lCollMx1.Content);
+            var coll = Convert.ToInt32(lRowMx1.Content);
             var rmg = new RandomMatrixGenerator();
 
             _matrixA = rmg.Generate(row, coll);
@@ -93,6 +93,7 @@ namespace T7_Computer_Systems_Lab1
 
         private void bTsp_Click(object sender, RoutedEventArgs e)
         {
+            bCount.IsEnabled = true;
             tbMx2.Visibility = Visibility.Hidden;
 
             gbMx2.Visibility = Visibility.Hidden;
@@ -106,6 +107,7 @@ namespace T7_Computer_Systems_Lab1
 
         private void bAdd_Click(object sender, RoutedEventArgs e)
         {
+            bCount.IsEnabled = true;
             tbMx2.Visibility = Visibility.Visible;
 
             gbMx2.Visibility = Visibility.Hidden;
@@ -121,7 +123,7 @@ namespace T7_Computer_Systems_Lab1
 
         private void bMlt_Click(object sender, RoutedEventArgs e)
         {
-
+            bCount.IsEnabled = true;
             tbMx2.Visibility = Visibility.Visible;
 
             gbMx2.Visibility = Visibility.Visible;
@@ -148,8 +150,8 @@ namespace T7_Computer_Systems_Lab1
 
         private void tbMx2_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var coll = Convert.ToInt32(lCollMx2.Content);
-            var row = Convert.ToInt32(lRowMx2.Content);
+            var row = Convert.ToInt32(lCollMx2.Content);
+            var coll = Convert.ToInt32(lRowMx2.Content);
             var rmg = new RandomMatrixGenerator();
 
             _matrixB = rmg.Generate(row, coll);
