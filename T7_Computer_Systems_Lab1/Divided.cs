@@ -89,9 +89,9 @@ namespace T7_Computer_Systems_Lab1
                 for (var j = 0; j < mA[i].Count; j++)
                     FreeCells.Add(new FreeCell(i, j));
 
-            Ma = mA;
-            Mb = mB;
-            Mc = mA;
+            Ma = CopyMatrix(mA);
+            Mb = CopyMatrix(mB);
+            Mc = CopyMatrix(mA);
 
             return DoWork();
         }
@@ -114,8 +114,8 @@ namespace T7_Computer_Systems_Lab1
                 for (var j = 0; j < Mc[i].Count; j++)
                     FreeCells.Add(new FreeCell(i, j));
 
-            Ma = mA;
-            Mb = mB;
+            Ma = CopyMatrix(mA);
+            Mb = CopyMatrix(mB);
 
             return DoWork();
         }
@@ -137,7 +137,7 @@ namespace T7_Computer_Systems_Lab1
             for (var i = 0; i < mA.Count; i++)
                 FreeRows.Add(i);
 
-            Ma = mA;
+            Ma = CopyMatrix(mA);
 
             return DoWork();
         }
@@ -176,6 +176,18 @@ namespace T7_Computer_Systems_Lab1
 
             Time = DateTime.Now - StartTime;
             return Mc;
+        }
+
+        protected List<List<int>> CopyMatrix(List<List<int>> from)
+        {
+            var to = new List<List<int>>();
+            for (var i = 0; i < from.Count; i++)
+            {
+                to.Add(new List<int>());
+                for (var j = 0; j < from[i].Count; j++)
+                    to[i].Add(from[i][j]);
+            }
+            return to;
         }
     }
 }

@@ -186,19 +186,18 @@ namespace T7_Computer_Systems_Lab1
                         print_Matrix(Dv.Multiplicate(_matrixA, _matrixB, Unit), TbMxRes);
                         break;
                 }
-            else
-                switch ((string)LType.Content)
-                {
-                    case "Transposition":
-                        print_Matrix(Cm.Transpose(_matrixA, Unit), TbMxRes);
-                        break;
-                    case "Addition":
-                        print_Matrix(Cm.Add(_matrixA, _matrixB, Unit), TbMxRes);
-                        break;
-                    case "Multiplication":
-                        print_Matrix(Cm.Multiplicate(_matrixA, _matrixB, Unit), TbMxRes);
-                        break;
-                }
+            else switch ((string) LType.Content)
+            {
+                case "Transposition":
+                    print_Matrix(Cm.Transpose(_matrixA, Unit), TbMxRes);
+                    break;
+                case "Addition":
+                    print_Matrix(Cm.Add(_matrixA, _matrixB, Unit), TbMxRes);
+                    break;
+                case "Multiplication":
+                    print_Matrix(Cm.Multiplicate(_matrixA, _matrixB, Unit), TbMxRes);
+                    break;
+            }
             LTime.Content = (Dv.Time > Cm.Time)? Dv.Time.ToString() : Cm.Time.ToString();
         }
 
