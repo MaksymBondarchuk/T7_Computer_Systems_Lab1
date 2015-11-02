@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace T7_Computer_Systems_Lab1
 {
@@ -54,12 +55,17 @@ namespace T7_Computer_Systems_Lab1
                     }
 
                     if (Addition)
+                    {
                         Mc[cell.Row][cell.Coll] = Ma[cell.Row][cell.Coll] + Mb[cell.Row][cell.Coll];
+                        Thread.Sleep(TactLength);
+                    }
                     else
+                    {
                         for (var i = 0; i < Ma[0].Count; i++)
-                            Mc[cell.Row][cell.Coll] += Ma[cell.Row][i] * Mb[i][cell.Coll];
-
-                    Thread.Sleep(TactLength);
+                            Mc[cell.Row][cell.Coll] += Ma[cell.Row][i]*Mb[i][cell.Coll];
+                        Thread.Sleep(TactLength * (Ma[0].Count * Alpha + Ma[0].Count - 1));
+                    }
+                    
                     continue;
                 }
 

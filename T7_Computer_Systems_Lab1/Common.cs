@@ -9,7 +9,7 @@ namespace T7_Computer_Systems_Lab1
         private readonly List<List<int>> _freeRowsForUnits = new List<List<int>>();
         private readonly List<List<FreeCell>> _freeCellsForUnits = new List<List<FreeCell>>();
 
-        public new void UnitWork()
+        private void UnitWork()
         {
             //Console.WriteLine(Thread.CurrentThread.Name + " started");
             var myId = Convert.ToInt32(Thread.CurrentThread.Name);
@@ -25,10 +25,16 @@ namespace T7_Computer_Systems_Lab1
                     _freeCellsForUnits[myId].RemoveAt(0);
 
                     if (Addition)
+                    {
                         Mc[cell.Row][cell.Coll] = Ma[cell.Row][cell.Coll] + Mb[cell.Row][cell.Coll];
+                        Thread.Sleep(TactLength * (Ma[0].Count * Alpha + Ma[0].Count - 1));
+                    }
                     else
+                    {
                         for (var i = 0; i < Ma[0].Count; i++)
-                            Mc[cell.Row][cell.Coll] += Ma[cell.Row][i] * Mb[i][cell.Coll];
+                            Mc[cell.Row][cell.Coll] += Ma[cell.Row][i]*Mb[i][cell.Coll];
+                        Thread.Sleep(TactLength*(Ma[0].Count*Alpha + Ma[0].Count - 1));
+                    }
 
                     Thread.Sleep(TactLength);
                     continue;
@@ -50,9 +56,10 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        public new List<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
+        public new IEnumerable<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
+            Alpha = alpha;
             CommonInitialisation(unitsNumber);
             Addition = true;
 
@@ -71,9 +78,10 @@ namespace T7_Computer_Systems_Lab1
             return DoWork();
         }
 
-        public new List<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
+        public new IEnumerable<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
+            Alpha = alpha;
             CommonInitialisation(unitsNumber);
             Multiplication = true;
 
@@ -99,9 +107,10 @@ namespace T7_Computer_Systems_Lab1
             return DoWork();
         }
 
-        public new List<List<int>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
+        public new IEnumerable<List<int>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
+            Alpha = alpha;
             CommonInitialisation(unitsNumber);
             Transposition = true;
 
@@ -125,7 +134,7 @@ namespace T7_Computer_Systems_Lab1
             return DoWork();
         }
 
-        protected new void CommonInitialisation(int unitsNumber)
+        private void CommonInitialisation(int unitsNumber)
         {
             Mc.Clear();
             _freeRowsForUnits.Clear();
