@@ -16,7 +16,7 @@ namespace T7_Computer_Systems_Lab1
         protected bool Multiplication;
         protected bool Transposition;
 
-        protected readonly List<int> FreeRows = new List<int>();
+        private readonly List<int> _freeRows = new List<int>();
 
         public TimeSpan Time;
         protected DateTime StartTime;
@@ -25,8 +25,8 @@ namespace T7_Computer_Systems_Lab1
 
         protected class FreeCell
         {
-            public int Row;
-            public int Coll;
+            public readonly int Row;
+            public readonly int Coll;
 
             public FreeCell(int row, int coll)
             {
@@ -36,7 +36,7 @@ namespace T7_Computer_Systems_Lab1
         }
         protected readonly List<FreeCell> FreeCells = new List<FreeCell>();
 
-        public void UnitWork()
+        private void UnitWork()
         {
             //Console.WriteLine(Thread.CurrentThread.Name + " started");
 
@@ -66,12 +66,12 @@ namespace T7_Computer_Systems_Lab1
 
                 if (!Transposition) continue;
                 int row;
-                lock (FreeRows)
+                lock (_freeRows)
                 {
-                    if (FreeRows.Count == 0)
+                    if (_freeRows.Count == 0)
                         return;
-                    row = FreeRows[0];
-                    FreeRows.RemoveAt(0);
+                    row = _freeRows[0];
+                    _freeRows.RemoveAt(0);
                 }
 
                 for (var i = 0; i < Ma[row].Count; i++)
@@ -81,9 +81,10 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        public List<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
+        public IEnumerable<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
+            Alpha = alpha;
             CommonInitialisation(unitsNumber);
             Addition = true;
 
@@ -98,9 +99,10 @@ namespace T7_Computer_Systems_Lab1
             return DoWork();
         }
 
-        public List<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
+        public IEnumerable<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
+            Alpha = alpha;
             CommonInitialisation(unitsNumber);
             Multiplication = true;
 
@@ -122,9 +124,10 @@ namespace T7_Computer_Systems_Lab1
             return DoWork();
         }
 
-        public List<List<int>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
+        public IEnumerable<List<int>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
+            Alpha = alpha;
             CommonInitialisation(unitsNumber);
             Transposition = true;
 
@@ -137,14 +140,14 @@ namespace T7_Computer_Systems_Lab1
             }
 
             for (var i = 0; i < mA.Count; i++)
-                FreeRows.Add(i);
+                _freeRows.Add(i);
 
             Ma = CopyMatrix(mA);
 
             return DoWork();
         }
 
-        public void PrintMatrix(List<List<int>> matrix)
+        public void PrintMatrix(IEnumerable<List<int>> matrix)
         {
             foreach (var t in matrix)
             {
@@ -155,10 +158,10 @@ namespace T7_Computer_Systems_Lab1
             Console.WriteLine();
         }
 
-        protected void CommonInitialisation(int unitsNumber)
+        private void CommonInitialisation(int unitsNumber)
         {
             Mc.Clear();
-            FreeRows.Clear();
+            _freeRows.Clear();
             Units.Clear();
             Addition = false;
             Transposition = false;
