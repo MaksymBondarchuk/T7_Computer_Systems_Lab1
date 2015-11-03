@@ -24,8 +24,6 @@ namespace T7_Computer_Systems_Lab1
 
         protected int Alpha;
 
-        protected int TotalWork;
-        public int Percents;
         //private readonly System.IO.StreamWriter _file = new System.IO.StreamWriter("trace.txt");
 
         protected class FreeCell
@@ -56,7 +54,6 @@ namespace T7_Computer_Systems_Lab1
                             return;
                         cell = _freeCells[0];
                         _freeCells.RemoveAt(0);
-                        Percents = _freeCells.Count/TotalWork;
                     }
 
                     if (Addition)
@@ -83,7 +80,6 @@ namespace T7_Computer_Systems_Lab1
                         return;
                     row = _freeRows[0];
                     _freeRows.RemoveAt(0);
-                    Percents = _freeRows.Count / TotalWork;
                 }
 
                 for (var i = 0; i < Ma[row].Count; i++)
@@ -106,7 +102,6 @@ namespace T7_Computer_Systems_Lab1
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
             Mc = CopyMatrix(mA);
-            TotalWork = Ma.Count*Ma.Count;
 
             return await DoWork(unitsNumber);
         }
@@ -132,7 +127,6 @@ namespace T7_Computer_Systems_Lab1
 
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
-            TotalWork = Mc.Count * Mc[0].Count;
             return await DoWork(unitsNumber);
         }
 
@@ -154,7 +148,6 @@ namespace T7_Computer_Systems_Lab1
                 _freeRows.Add(i);
 
             Ma = CopyMatrix(mA);
-            TotalWork = Ma.Count;
 
             return await DoWork(unitsNumber);
         }
