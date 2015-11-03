@@ -176,7 +176,7 @@ namespace T7_Computer_Systems_Lab1
             set_matrix2();
         }
 
-        private void bCount_Click(object sender, RoutedEventArgs e)
+        private async void bCount_Click(object sender, RoutedEventArgs e)
         {
             Dv = new Divided();
             Cm = new Common();
@@ -186,25 +186,25 @@ namespace T7_Computer_Systems_Lab1
                 switch ((string) LType.Content)
                 {
                     case "Transposition":
-                        print_Matrix(Dv.Transpose(_matrixA, Unit, 7), TbMxRes);
+                        print_Matrix(await Dv.Transpose(_matrixA, Unit, 7), TbMxRes);
                         break;
                     case "Addition":
-                        print_Matrix(Dv.Add(_matrixA, _matrixB, Unit, 7), TbMxRes);
+                        print_Matrix(await Dv.Add(_matrixA, _matrixB, Unit, 7), TbMxRes);
                         break;
                     case "Multiplication":
-                        print_Matrix(Dv.Multiplicate(_matrixA, _matrixB, Unit, 7), TbMxRes);
+                        print_Matrix(await Dv.Multiplicate(_matrixA, _matrixB, Unit, 7), TbMxRes);
                         break;
                 }
             else switch ((string) LType.Content)
             {
                 case "Transposition":
-                    print_Matrix(Cm.Transpose(_matrixA, Unit, 7), TbMxRes);
+                    print_Matrix(await Cm.Transpose(_matrixA, Unit, 7), TbMxRes);
                     break;
                 case "Addition":
-                    print_Matrix(Cm.Add(_matrixA, _matrixB, Unit, 7), TbMxRes);
+                    print_Matrix(await Cm.Add(_matrixA, _matrixB, Unit, 7), TbMxRes);
                     break;
                 case "Multiplication":
-                    print_Matrix(Cm.Multiplicate(_matrixA, _matrixB, Unit, 7), TbMxRes);
+                    print_Matrix(await Cm.Multiplicate(_matrixA, _matrixB, Unit, 7), TbMxRes);
                     break;
             }
             LTime.Content = (Dv.Time > Cm.Time)? Dv.Time.ToString() : Cm.Time.ToString();

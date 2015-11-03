@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace T7_Computer_Systems_Lab1
 {
@@ -9,31 +10,29 @@ namespace T7_Computer_Systems_Lab1
         private readonly List<List<int>> _freeRowsForUnits = new List<List<int>>();
         private readonly List<List<FreeCell>> _freeCellsForUnits = new List<List<FreeCell>>();
 
-        private void UnitWork()
+        private async Task UnitWork(int id)
         {
-            //Console.WriteLine(Thread.CurrentThread.Name + " started");
-            var myId = Convert.ToInt32(Thread.CurrentThread.Name);
-
             while (true)
             {
                 if (Addition || Multiplication)
                 {
-                    if (_freeCellsForUnits[myId].Count == 0)
+                    if (_freeCellsForUnits[id].Count == 0)
                         return;
 
-                    var cell = _freeCellsForUnits[myId][0];
-                    _freeCellsForUnits[myId].RemoveAt(0);
+                    var cell = _freeCellsForUnits[id][0];
+                    _freeCellsForUnits[id].RemoveAt(0);
 
                     if (Addition)
                     {
                         Mc[cell.Row][cell.Coll] = Ma[cell.Row][cell.Coll] + Mb[cell.Row][cell.Coll];
-                        Thread.Sleep(TactLength * (Ma[0].Count * Alpha + Ma[0].Count - 1));
+                        await Task.Delay(TactLength);
                     }
                     else
                     {
                         for (var i = 0; i < Ma[0].Count; i++)
                             Mc[cell.Row][cell.Coll] += Ma[cell.Row][i]*Mb[i][cell.Coll];
-                        Thread.Sleep(TactLength*(Ma[0].Count*Alpha + Ma[0].Count - 1));
+                        var delay = TactLength * (Ma[0].Count * Alpha + Ma[0].Count - 1);
+                        await Task.Delay(delay);
                     }
 
                     Thread.Sleep(TactLength);
@@ -43,11 +42,11 @@ namespace T7_Computer_Systems_Lab1
 
                 if (!Transposition) continue;
 
-                if (_freeRowsForUnits[myId].Count == 0)
+                if (_freeRowsForUnits[id].Count == 0)
                     return;
 
-                var row = _freeRowsForUnits[myId][0];
-                _freeRowsForUnits[myId].RemoveAt(0);
+                var row = _freeRowsForUnits[id][0];
+                _freeRowsForUnits[id].RemoveAt(0);
                 
                 for (var i = 0; i < Ma[row].Count; i++)
                     Mc[i][row] = Ma[row][i];
@@ -56,11 +55,11 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        public new IEnumerable<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
+        public new async Task<IEnumerable<List<int>>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
             Alpha = alpha;
-            CommonInitialisation(unitsNumber);
+            CommonInitialisation(alpha);
             Addition = true;
 
             Ma = CopyMatrix(mA);
@@ -75,14 +74,14 @@ namespace T7_Computer_Systems_Lab1
                 for (var j = 0; j < Ma[i].Count; j++)
                     _freeCellsForUnits[currentUnit++ % unitsNumber].Add(new FreeCell(i, j));
 
-            return DoWork();
+            return await DoWork(unitsNumber);
         }
 
-        public new IEnumerable<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
+        public new async Task<IEnumerable<List<int>>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
             Alpha = alpha;
-            CommonInitialisation(unitsNumber);
+            CommonInitialisation(alpha);
             Multiplication = true;
 
             // Result matrix initialisation -----------------------
@@ -104,14 +103,14 @@ namespace T7_Computer_Systems_Lab1
                 for (var j = 0; j < Mc[i].Count; j++)
                     _freeCellsForUnits[currentUnit++ % unitsNumber].Add(new FreeCell(i, j));
 
-            return DoWork();
+            return await DoWork(unitsNumber);
         }
 
-        public new IEnumerable<List<int>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
+        public new async Task<IEnumerable<List<int>>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
             Alpha = alpha;
-            CommonInitialisation(unitsNumber);
+            CommonInitialisation(alpha);
             Transposition = true;
 
             // Result matrix initialisation -----------------------
@@ -131,11 +130,22 @@ namespace T7_Computer_Systems_Lab1
             for (var i = 0; i < Ma.Count; i++)
                 _freeRowsForUnits[currentUnit++ % unitsNumber].Add(i);
 
-            return DoWork();
+            return await DoWork(unitsNumber);
         }
 
-        private void CommonInitialisation(int unitsNumber)
+        private async Task<IEnumerable<List<int>>> DoWork(int unitsNumber)
         {
+            for (var i = 0; i < unitsNumber; i++)
+                Units.Add(UnitWork(i));
+            await Task.WhenAll(Units);
+
+            Time = DateTime.Now - StartTime;
+            return Mc;
+        }
+
+        private void CommonInitialisation(int alpha)
+        {
+            Alpha = alpha;
             Mc.Clear();
             _freeRowsForUnits.Clear();
             _freeCellsForUnits.Clear();
@@ -143,9 +153,6 @@ namespace T7_Computer_Systems_Lab1
             Addition = false;
             Transposition = false;
             Multiplication = false;
-
-            for (var i = 0; i < unitsNumber; i++)
-                Units.Add(new Thread(UnitWork) { Name = i.ToString() });
         }
     }
 }

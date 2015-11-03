@@ -7,11 +7,11 @@ namespace T7_Computer_Systems_Lab1
 {
     public class Divided
     {
-        protected readonly List<Thread> Units = new List<Thread>();
+        protected readonly List<Task> Units = new List<Task>();
         protected List<List<int>> Ma;
         protected List<List<int>> Mb;
         protected List<List<int>> Mc = new List<List<int>>();
-        protected const int TactLength = 200;
+        protected const int TactLength = 50;
 
         protected bool Addition;
         protected bool Multiplication;
@@ -24,6 +24,8 @@ namespace T7_Computer_Systems_Lab1
 
         protected int Alpha;
 
+        //private readonly System.IO.StreamWriter _file = new System.IO.StreamWriter("trace.txt");
+
         protected class FreeCell
         {
             public readonly int Row;
@@ -35,9 +37,9 @@ namespace T7_Computer_Systems_Lab1
                 Coll = coll;
             }
         }
-        protected readonly List<FreeCell> FreeCells = new List<FreeCell>();
+        private readonly List<FreeCell> _freeCells = new List<FreeCell>();
 
-        private void UnitWork()
+        private async Task UnitWork()
         {
             //Console.WriteLine(Thread.CurrentThread.Name + " started");
 
@@ -46,12 +48,12 @@ namespace T7_Computer_Systems_Lab1
                 if (Addition || Multiplication)
                 {
                     FreeCell cell;
-                    lock (FreeCells)
+                    lock (_freeCells)
                     {
-                        if (FreeCells.Count == 0)
+                        if (_freeCells.Count == 0)
                             return;
-                        cell = FreeCells[0];
-                        FreeCells.RemoveAt(0);
+                        cell = _freeCells[0];
+                        _freeCells.RemoveAt(0);
                     }
 
                     if (Addition)
@@ -63,9 +65,9 @@ namespace T7_Computer_Systems_Lab1
                     {
                         for (var i = 0; i < Ma[0].Count; i++)
                             Mc[cell.Row][cell.Coll] += Ma[cell.Row][i]*Mb[i][cell.Coll];
-                        Thread.Sleep(TactLength * (Ma[0].Count * Alpha + Ma[0].Count - 1));
+                        var delay = TactLength*(Ma[0].Count*Alpha + Ma[0].Count - 1);
+                        await Task.Delay(delay);
                     }
-                    
                     continue;
                 }
 
@@ -87,29 +89,27 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        public IEnumerable<List<int>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
+        public async Task<IEnumerable<List<int>>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
-            Alpha = alpha;
-            CommonInitialisation(unitsNumber);
+            CommonInitialisation(alpha);
             Addition = true;
 
             for (var i = 0; i < mA.Count; i++)
                 for (var j = 0; j < mA[i].Count; j++)
-                    FreeCells.Add(new FreeCell(i, j));
+                    _freeCells.Add(new FreeCell(i, j));
 
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
             Mc = CopyMatrix(mA);
 
-            return DoWork();
+            return await DoWork(unitsNumber);
         }
 
-        public IEnumerable<List<int>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
+        public async Task<IEnumerable<List<int>>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
-            Alpha = alpha;
-            CommonInitialisation(unitsNumber);
+            CommonInitialisation(alpha);
             Multiplication = true;
 
             // Result matrix initialisation -----------------------
@@ -122,19 +122,17 @@ namespace T7_Computer_Systems_Lab1
 
             for (var i = 0; i < Mc.Count; i++)
                 for (var j = 0; j < Mc[i].Count; j++)
-                    FreeCells.Add(new FreeCell(i, j));
+                    _freeCells.Add(new FreeCell(i, j));
 
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
-
-            return DoWork();
+            return await DoWork(unitsNumber);
         }
 
-        public IEnumerable<List<int>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
+        public async Task<IEnumerable<List<int>>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
-            Alpha = alpha;
-            CommonInitialisation(unitsNumber);
+            CommonInitialisation(alpha);
             Transposition = true;
 
             // Result matrix initialisation -----------------------
@@ -150,7 +148,7 @@ namespace T7_Computer_Systems_Lab1
 
             Ma = CopyMatrix(mA);
 
-            return DoWork();
+            return await DoWork(unitsNumber);
         }
 
         public void PrintMatrix(IEnumerable<List<int>> matrix)
@@ -164,32 +162,29 @@ namespace T7_Computer_Systems_Lab1
             Console.WriteLine();
         }
 
-        private void CommonInitialisation(int unitsNumber)
+        private void CommonInitialisation(int alpha)
         {
+            Alpha = alpha;
             Mc.Clear();
             _freeRows.Clear();
+            _freeCells.Clear();
             Units.Clear();
             Addition = false;
             Transposition = false;
             Multiplication = false;
-
-            for (var i = 0; i < unitsNumber; i++)
-                Units.Add(new Thread(UnitWork) { Name = i.ToString() });
         }
 
-        protected List<List<int>> DoWork()
+        private async Task<IEnumerable<List<int>>> DoWork(int unitsNumber)
         {
-            foreach (var t in Units)
-                t.Start();
-
-            foreach (var t in Units)
-                t.Join();
+            for (var i = 0; i < unitsNumber; i++)
+                Units.Add(UnitWork());
+            await Task.WhenAll(Units);
 
             Time = DateTime.Now - StartTime;
             return Mc;
         }
 
-        protected List<List<int>> CopyMatrix(List<List<int>> from)
+        protected static List<List<int>> CopyMatrix(List<List<int>> from)
         {
             var to = new List<List<int>>();
             for (var i = 0; i < from.Count; i++)
