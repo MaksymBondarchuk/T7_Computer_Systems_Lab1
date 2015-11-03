@@ -89,10 +89,10 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
-        public async Task<IEnumerable<List<int>>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
+        public async Task<IEnumerable<List<int>>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
         {
             StartTime = DateTime.Now;
-            CommonInitialisation(alpha);
+            CommonInitialisation();
             Addition = true;
 
             for (var i = 0; i < mA.Count; i++)
@@ -109,7 +109,8 @@ namespace T7_Computer_Systems_Lab1
         public async Task<IEnumerable<List<int>>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
-            CommonInitialisation(alpha);
+            CommonInitialisation();
+            Alpha = alpha;
             Multiplication = true;
 
             // Result matrix initialisation -----------------------
@@ -129,10 +130,10 @@ namespace T7_Computer_Systems_Lab1
             return await DoWork(unitsNumber);
         }
 
-        public async Task<IEnumerable<List<int>>> Transpose(List<List<int>> mA, int unitsNumber, int alpha)
+        public async Task<IEnumerable<List<int>>> Transpose(List<List<int>> mA, int unitsNumber)
         {
             StartTime = DateTime.Now;
-            CommonInitialisation(alpha);
+            CommonInitialisation();
             Transposition = true;
 
             // Result matrix initialisation -----------------------
@@ -162,9 +163,8 @@ namespace T7_Computer_Systems_Lab1
             Console.WriteLine();
         }
 
-        private void CommonInitialisation(int alpha)
+        private void CommonInitialisation()
         {
-            Alpha = alpha;
             Mc.Clear();
             _freeRows.Clear();
             _freeCells.Clear();

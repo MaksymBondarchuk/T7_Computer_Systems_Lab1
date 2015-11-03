@@ -186,10 +186,10 @@ namespace T7_Computer_Systems_Lab1
                 switch ((string) LType.Content)
                 {
                     case "Transposition":
-                        print_Matrix(await Dv.Transpose(_matrixA, unit, alpha), TbMxRes);
+                        print_Matrix(await Dv.Transpose(_matrixA, unit), TbMxRes);
                         break;
                     case "Addition":
-                        print_Matrix(await Dv.Add(_matrixA, _matrixB, unit, alpha), TbMxRes);
+                        print_Matrix(await Dv.Add(_matrixA, _matrixB, unit), TbMxRes);
                         break;
                     case "Multiplication":
                         print_Matrix(await Dv.Multiplicate(_matrixA, _matrixB, unit, alpha), TbMxRes);
@@ -198,10 +198,10 @@ namespace T7_Computer_Systems_Lab1
             else switch ((string) LType.Content)
             {
                 case "Transposition":
-                    print_Matrix(await Cm.Transpose(_matrixA, unit, alpha), TbMxRes);
+                    print_Matrix(await Cm.Transpose(_matrixA, unit), TbMxRes);
                     break;
                 case "Addition":
-                    print_Matrix(await Cm.Add(_matrixA, _matrixB, unit, alpha), TbMxRes);
+                    print_Matrix(await Cm.Add(_matrixA, _matrixB, unit), TbMxRes);
                     break;
                 case "Multiplication":
                     print_Matrix(await Cm.Multiplicate(_matrixA, _matrixB, unit, alpha), TbMxRes);
