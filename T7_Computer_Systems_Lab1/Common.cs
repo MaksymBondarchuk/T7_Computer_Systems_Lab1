@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace T7_Computer_Systems_Lab1
@@ -33,6 +34,13 @@ namespace T7_Computer_Systems_Lab1
                         var delay = TactLength * (Ma[0].Count * Alpha + Ma[0].Count - 1);
                         await Task.Delay(delay);
                     }
+
+                    lock (FreeRows)
+                    {
+                        var totalFreeCells = _freeCellsForUnits.Sum(fcfu => fcfu.Count);
+                        Progress = (TotalWork - totalFreeCells) * 100 / TotalWork;
+                    }
+
                     continue;
                 }
 
@@ -49,6 +57,12 @@ namespace T7_Computer_Systems_Lab1
                     Mc[i][row] = Ma[row][i];
 
                 await Task.Delay(TactLength);
+
+                lock (FreeRows)
+                {
+                    var totalFreeRows = _freeRowsForUnits.Sum(frfu => frfu.Count);
+                    Progress = (TotalWork - totalFreeRows) * 100 / TotalWork;
+                }
             }
         }
 
@@ -61,6 +75,8 @@ namespace T7_Computer_Systems_Lab1
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
             Mc = CopyMatrix(mA);
+            TotalWork = Ma.Count * Ma.Count;
+            Progress = 0;
 
             for (var i = 0; i < unitsNumber; i++)
                 _freeCellsForUnits.Add(new List<FreeCell>());
@@ -69,7 +85,7 @@ namespace T7_Computer_Systems_Lab1
             for (var i = 0; i < Ma.Count; i++)
                 for (var j = 0; j < Ma[i].Count; j++)
                     _freeCellsForUnits[currentUnit++ % unitsNumber].Add(new FreeCell(i, j));
-
+            
             return await DoWork(unitsNumber);
         }
 
@@ -90,6 +106,8 @@ namespace T7_Computer_Systems_Lab1
 
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
+            TotalWork = Mc.Count * Mc[0].Count;
+            Progress = 0;
 
             for (var i = 0; i < unitsNumber; i++)
                 _freeCellsForUnits.Add(new List<FreeCell>());
@@ -98,7 +116,7 @@ namespace T7_Computer_Systems_Lab1
             for (var i = 0; i < Mc.Count; i++)
                 for (var j = 0; j < Mc[i].Count; j++)
                     _freeCellsForUnits[currentUnit++ % unitsNumber].Add(new FreeCell(i, j));
-
+            
             return await DoWork(unitsNumber);
         }
 
@@ -117,6 +135,8 @@ namespace T7_Computer_Systems_Lab1
             }
 
             Ma = CopyMatrix(mA);
+            TotalWork = Ma.Count;
+            Progress = 0;
 
             for (var i = 0; i < unitsNumber; i++)
                 _freeRowsForUnits.Add(new List<int>());

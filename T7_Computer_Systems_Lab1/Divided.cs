@@ -22,12 +22,10 @@ namespace T7_Computer_Systems_Lab1
         protected DateTime StartTime;
 
         protected int Alpha;
-        private int _totalWork;
+        protected int TotalWork;
         public int Progress;
 
-        //private readonly System.IO.StreamWriter _file = new System.IO.StreamWriter("trace.txt");
-
-        protected class FreeCell
+        public class FreeCell
         {
             public readonly int Row;
             public readonly int Coll;
@@ -38,24 +36,22 @@ namespace T7_Computer_Systems_Lab1
                 Coll = coll;
             }
         }
-        private readonly List<FreeCell> _freeCells = new List<FreeCell>();
+        public readonly List<FreeCell> FreeCells = new List<FreeCell>();
 
         private async Task UnitWork()
         {
-            //Console.WriteLine(Thread.CurrentThread.Name + " started");
-
             while (true)
             {
                 if (Addition || Multiplication)
                 {
                     FreeCell cell;
-                    lock (_freeCells)
+                    lock (FreeRows)
                     {
-                        if (_freeCells.Count == 0)
+                        if (FreeCells.Count == 0)
                             return;
-                        cell = _freeCells[0];
-                        _freeCells.RemoveAt(0);
-                        Progress = (_totalWork - _freeCells.Count) * 100 / _totalWork;
+                        cell = FreeCells[0];
+                        FreeCells.RemoveAt(0);
+                        Progress = (TotalWork - FreeCells.Count) * 100 / TotalWork;
                     }
 
                     if (Addition)
@@ -82,6 +78,7 @@ namespace T7_Computer_Systems_Lab1
                         return;
                     row = FreeRows[0];
                     FreeRows.RemoveAt(0);
+                    Progress = (TotalWork - FreeRows.Count) * 100 / TotalWork;
                 }
 
                 for (var i = 0; i < Ma[row].Count; i++)
@@ -99,12 +96,13 @@ namespace T7_Computer_Systems_Lab1
 
             for (var i = 0; i < mA.Count; i++)
                 for (var j = 0; j < mA[i].Count; j++)
-                    _freeCells.Add(new FreeCell(i, j));
+                    FreeCells.Add(new FreeCell(i, j));
 
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
             Mc = CopyMatrix(mA);
-            _totalWork = Ma.Count * Ma.Count;
+            TotalWork = Ma.Count * Ma.Count;
+            Progress = 0;
             return await DoWork(unitsNumber);
         }
 
@@ -125,11 +123,12 @@ namespace T7_Computer_Systems_Lab1
 
             for (var i = 0; i < Mc.Count; i++)
                 for (var j = 0; j < Mc[i].Count; j++)
-                    _freeCells.Add(new FreeCell(i, j));
+                    FreeCells.Add(new FreeCell(i, j));
 
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
-            _totalWork = Mc.Count * Mc[0].Count;
+            TotalWork = Mc.Count * Mc[0].Count;
+            Progress = 0;
             return await DoWork(unitsNumber);
         }
 
@@ -151,7 +150,8 @@ namespace T7_Computer_Systems_Lab1
                 FreeRows.Add(i);
 
             Ma = CopyMatrix(mA);
-
+            TotalWork = Ma.Count;
+            Progress = 0;
             return await DoWork(unitsNumber);
         }
 
@@ -170,7 +170,7 @@ namespace T7_Computer_Systems_Lab1
         {
             Mc.Clear();
             FreeRows.Clear();
-            _freeCells.Clear();
+            FreeCells.Clear();
             Units.Clear();
             Addition = false;
             Transposition = false;

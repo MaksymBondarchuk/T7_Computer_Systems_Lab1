@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -36,8 +37,8 @@ namespace T7_Computer_Systems_Lab1
         private void lColl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var s = ((Convert.ToInt32(LCollMx1.Content.ToString()) + 1) % 10).ToString();
-            LCollMx1.Content = (s == "0")?  "1" : s;
-            if ((string) LType.Content == "Addition")
+            LCollMx1.Content = (s == "0") ? "1" : s;
+            if ((string)LType.Content == "Addition")
                 LCollMx2.Content = LCollMx1.Content;
             set_matrix1();
             set_matrix2();
@@ -47,7 +48,7 @@ namespace T7_Computer_Systems_Lab1
         {
             var s = (Convert.ToInt32(LCollMx1.Content.ToString()) - 1).ToString();
             LCollMx1.Content = (s == "0") ? "9" : s;
-            if ((string) LType.Content == "Addition")
+            if ((string)LType.Content == "Addition")
                 LCollMx2.Content = LCollMx1.Content;
             set_matrix1();
             set_matrix2();
@@ -57,7 +58,7 @@ namespace T7_Computer_Systems_Lab1
         {
             var s = ((Convert.ToInt32(LRowMx1.Content.ToString()) + 1) % 10).ToString();
             LRowMx1.Content = (s == "0") ? "1" : s;
-            if ((string) LType.Content != "Addition")
+            if ((string)LType.Content != "Addition")
                 LCollMx2.Content = LRowMx1.Content;
             else
                 LRowMx2.Content = LRowMx1.Content;
@@ -69,7 +70,7 @@ namespace T7_Computer_Systems_Lab1
         {
             var s = (Convert.ToInt32(LRowMx1.Content.ToString()) - 1).ToString();
             LRowMx1.Content = (s == "0") ? "9" : s;
-            if ((string) LType.Content != "Addition")
+            if ((string)LType.Content != "Addition")
                 LCollMx2.Content = LRowMx1.Content;
             else
                 LRowMx2.Content = LRowMx1.Content;
@@ -181,40 +182,78 @@ namespace T7_Computer_Systems_Lab1
             set_matrix2();
         }
 
+        private async void DoPbDv()
+        {
+            int currentProgress;
+            do
+            {
+                lock (Dv.FreeRows)
+                {
+                    currentProgress = Dv.Progress;
+                }
+                PbWork.Value = currentProgress;
+
+                await Task.Delay(100);
+            } while (currentProgress < 100);
+        }
+
+        private async void DoPbCm()
+        {
+            int currentProgress;
+            do
+            {
+                lock (Cm.FreeRows)
+                {
+                    currentProgress = Cm.Progress;
+                }
+                PbWork.Value = currentProgress;
+
+                await Task.Delay(100);
+            } while (currentProgress < 100);
+        }
+
         private async void bCount_Click(object sender, RoutedEventArgs e)
         {
             Dv = new Divided();
             Cm = new Common();
+            PbWork.Value = 0;
             var unit = Convert.ToInt32(LNumberOfProc.Content);
             var alpha = Convert.ToInt32(LAlpha.Content);
             PbWork.Visibility = Visibility.Visible;
 
-            if (RbDv.IsChecked != null && (bool) RbDv.IsChecked)
-                switch ((string) LType.Content)
+            if (RbDv.IsChecked != null && (bool)RbDv.IsChecked)
+                switch ((string)LType.Content)
                 {
                     case "Transposition":
+                        DoPbDv();
                         print_Matrix(await Dv.Transpose(_matrixA, unit), TbMxRes);
                         break;
                     case "Addition":
+                        DoPbDv();
                         print_Matrix(await Dv.Add(_matrixA, _matrixB, unit), TbMxRes);
                         break;
                     case "Multiplication":
+                        DoPbDv();
                         print_Matrix(await Dv.Multiplicate(_matrixA, _matrixB, unit, alpha), TbMxRes);
                         break;
                 }
-            else switch ((string) LType.Content)
-            {
-                case "Transposition":
-                    print_Matrix(await Cm.Transpose(_matrixA, unit), TbMxRes);
-                    break;
-                case "Addition":
-                    print_Matrix(await Cm.Add(_matrixA, _matrixB, unit), TbMxRes);
-                    break;
-                case "Multiplication":
-                    print_Matrix(await Cm.Multiplicate(_matrixA, _matrixB, unit, alpha), TbMxRes);
-                    break;
-            }
-            LTime.Content = (Dv.Time > Cm.Time)? Dv.Time.ToString() : Cm.Time.ToString();
+            else
+                switch ((string)LType.Content)
+                {
+                    case "Transposition":
+                        DoPbCm();
+                        print_Matrix(await Cm.Transpose(_matrixA, unit), TbMxRes);
+                        break;
+                    case "Addition":
+                        DoPbCm();
+                        print_Matrix(await Cm.Add(_matrixA, _matrixB, unit), TbMxRes);
+                        break;
+                    case "Multiplication":
+                        DoPbCm();
+                        print_Matrix(await Cm.Multiplicate(_matrixA, _matrixB, unit, alpha), TbMxRes);
+                        break;
+                }
+            LTime.Content = (Dv.Time > Cm.Time) ? Dv.Time.ToString() : Cm.Time.ToString();
         }
 
         void set_matrix1()
@@ -237,11 +276,6 @@ namespace T7_Computer_Systems_Lab1
         {
             var s = (Convert.ToInt32(LAlpha.Content.ToString()) - 1).ToString();
             LAlpha.Content = (s == "0") ? "9" : s;
-        }
-
-        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            PbWork.Value = e.NewValue;
         }
 
         void set_matrix2()
