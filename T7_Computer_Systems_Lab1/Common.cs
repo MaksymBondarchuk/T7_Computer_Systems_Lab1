@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace T7_Computer_Systems_Lab1
@@ -34,8 +33,6 @@ namespace T7_Computer_Systems_Lab1
                         var delay = TactLength * (Ma[0].Count * Alpha + Ma[0].Count - 1);
                         await Task.Delay(delay);
                     }
-
-                    Thread.Sleep(TactLength);
                     continue;
                 }
 
@@ -51,7 +48,7 @@ namespace T7_Computer_Systems_Lab1
                 for (var i = 0; i < Ma[row].Count; i++)
                     Mc[i][row] = Ma[row][i];
 
-                Thread.Sleep(TactLength);
+                await Task.Delay(TactLength);
             }
         }
 
