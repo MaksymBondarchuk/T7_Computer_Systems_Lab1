@@ -28,8 +28,10 @@
         <Button x:Name="BCount" Content="Count" HorizontalAlignment="Left" Margin="634,53,0,0" FontSize="26.667" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="White" Width="135" Foreground="White" Click="bCount_Click" IsEnabled="False" Height="40" VerticalAlignment="Top"/>
         <Label x:Name="LType" Content="&lt;NONE&gt;" HorizontalAlignment="Left" Margin="634,10,0,0" VerticalAlignment="Top" FontSize="21.333" Foreground="White" Background="{x:Null}"/>
         <Label x:Name="LTextType" Content="Operation:" HorizontalAlignment="Left" Margin="500,10,0,0" VerticalAlignment="Top" FontSize="21.333" Foreground="White"/>
-        <Label x:Name="LTimeText" Content="Working time: " HorizontalAlignment="Left" Margin="496,329,0,0" VerticalAlignment="Top" FontSize="16" Foreground="White" Height="31"/>
-        <Label x:Name="LTime" Content="&lt;NONE&gt;" HorizontalAlignment="Left" Margin="614,329,0,0" VerticalAlignment="Top" FontSize="16" Foreground="White" Height="31"/>
+        <Label x:Name="LTimeText" Content="Working time: " HorizontalAlignment="Left" Margin="495,329,0,0" VerticalAlignment="Top" FontSize="16" Foreground="White" Height="31" Width="111"/>
+        <Label x:Name="LTime" Content="&lt;NONE&gt;" HorizontalAlignment="Left" Margin="611,329,0,0" VerticalAlignment="Top" FontSize="16" Foreground="White" Height="31"/>
+        <Label x:Name="LTextAlpha" Content="α" HorizontalAlignment="Left" Margin="769,-2,0,0" VerticalAlignment="Top" FontSize="32" Foreground="White" Width="54" HorizontalContentAlignment="Center"/>
+        <Label x:Name="LAlpha" Content="5" HorizontalAlignment="Left" Margin="769,48,0,0" VerticalAlignment="Top" FontSize="26.667" Foreground="White" Width="54" HorizontalContentAlignment="Center" MouseLeftButtonDown="LAlpha_MouseLeftButtonDown" MouseRightButtonDown="LAlpha_MouseRightButtonDown"/>
 
     </Grid>
 </Window>

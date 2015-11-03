@@ -14,7 +14,6 @@ namespace T7_Computer_Systems_Lab1
         public Divided Dv { get; private set; }
         public Common Cm { get; private set; }
         List<List<int>> _matrixA, _matrixB;
-        public int Unit { get; private set; }
 
         public MainWindow()
         {
@@ -180,31 +179,32 @@ namespace T7_Computer_Systems_Lab1
         {
             Dv = new Divided();
             Cm = new Common();
-            Unit = Convert.ToInt32(LNumberOfProc.Content);
+            var unit = Convert.ToInt32(LNumberOfProc.Content);
+            var alpha = Convert.ToInt32(LAlpha.Content);
 
             if (RbDv.IsChecked != null && (bool) RbDv.IsChecked)
                 switch ((string) LType.Content)
                 {
                     case "Transposition":
-                        print_Matrix(await Dv.Transpose(_matrixA, Unit, 7), TbMxRes);
+                        print_Matrix(await Dv.Transpose(_matrixA, unit, alpha), TbMxRes);
                         break;
                     case "Addition":
-                        print_Matrix(await Dv.Add(_matrixA, _matrixB, Unit, 7), TbMxRes);
+                        print_Matrix(await Dv.Add(_matrixA, _matrixB, unit, alpha), TbMxRes);
                         break;
                     case "Multiplication":
-                        print_Matrix(await Dv.Multiplicate(_matrixA, _matrixB, Unit, 7), TbMxRes);
+                        print_Matrix(await Dv.Multiplicate(_matrixA, _matrixB, unit, alpha), TbMxRes);
                         break;
                 }
             else switch ((string) LType.Content)
             {
                 case "Transposition":
-                    print_Matrix(await Cm.Transpose(_matrixA, Unit, 7), TbMxRes);
+                    print_Matrix(await Cm.Transpose(_matrixA, unit, alpha), TbMxRes);
                     break;
                 case "Addition":
-                    print_Matrix(await Cm.Add(_matrixA, _matrixB, Unit, 7), TbMxRes);
+                    print_Matrix(await Cm.Add(_matrixA, _matrixB, unit, alpha), TbMxRes);
                     break;
                 case "Multiplication":
-                    print_Matrix(await Cm.Multiplicate(_matrixA, _matrixB, Unit, 7), TbMxRes);
+                    print_Matrix(await Cm.Multiplicate(_matrixA, _matrixB, unit, alpha), TbMxRes);
                     break;
             }
             LTime.Content = (Dv.Time > Cm.Time)? Dv.Time.ToString() : Cm.Time.ToString();
@@ -218,6 +218,24 @@ namespace T7_Computer_Systems_Lab1
 
             _matrixA = rmg.Generate(row, coll);
             print_Matrix(_matrixA, TbMx1);
+        }
+
+        private void LAlpha_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var s = ((Convert.ToInt32(LNumberOfProc.Content.ToString()) + 1) % 10).ToString();
+            LAlpha.Content = (s == "0") ? "1" : s;
+        }
+
+        private void LAlpha_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var s = ((Convert.ToInt32(LAlpha.Content.ToString()) + 1) % 10).ToString();
+            LAlpha.Content = (s == "0") ? "1" : s;
+        }
+
+        private void LAlpha_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var s = (Convert.ToInt32(LAlpha.Content.ToString()) - 1).ToString();
+            LAlpha.Content = (s == "0") ? "9" : s;
         }
 
         void set_matrix2()
