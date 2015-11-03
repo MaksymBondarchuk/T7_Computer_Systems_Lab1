@@ -16,12 +16,14 @@ namespace T7_Computer_Systems_Lab1
         protected bool Multiplication;
         protected bool Transposition;
 
-        private readonly List<int> _freeRows = new List<int>();
+        public readonly List<int> FreeRows = new List<int>();
 
         public TimeSpan Time;
         protected DateTime StartTime;
 
         protected int Alpha;
+        private int _totalWork;
+        public int Progress;
 
         //private readonly System.IO.StreamWriter _file = new System.IO.StreamWriter("trace.txt");
 
@@ -53,6 +55,7 @@ namespace T7_Computer_Systems_Lab1
                             return;
                         cell = _freeCells[0];
                         _freeCells.RemoveAt(0);
+                        Progress = (_totalWork - _freeCells.Count) * 100 / _totalWork;
                     }
 
                     if (Addition)
@@ -63,8 +66,8 @@ namespace T7_Computer_Systems_Lab1
                     else
                     {
                         for (var i = 0; i < Ma[0].Count; i++)
-                            Mc[cell.Row][cell.Coll] += Ma[cell.Row][i]*Mb[i][cell.Coll];
-                        var delay = TactLength*(Ma[0].Count*Alpha + Ma[0].Count - 1);
+                            Mc[cell.Row][cell.Coll] += Ma[cell.Row][i] * Mb[i][cell.Coll];
+                        var delay = TactLength * (Ma[0].Count * Alpha + Ma[0].Count - 1);
                         await Task.Delay(delay);
                     }
                     continue;
@@ -73,12 +76,12 @@ namespace T7_Computer_Systems_Lab1
 
                 if (!Transposition) continue;
                 int row;
-                lock (_freeRows)
+                lock (FreeRows)
                 {
-                    if (_freeRows.Count == 0)
+                    if (FreeRows.Count == 0)
                         return;
-                    row = _freeRows[0];
-                    _freeRows.RemoveAt(0);
+                    row = FreeRows[0];
+                    FreeRows.RemoveAt(0);
                 }
 
                 for (var i = 0; i < Ma[row].Count; i++)
@@ -101,7 +104,7 @@ namespace T7_Computer_Systems_Lab1
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
             Mc = CopyMatrix(mA);
-
+            _totalWork = Ma.Count * Ma.Count;
             return await DoWork(unitsNumber);
         }
 
@@ -126,6 +129,7 @@ namespace T7_Computer_Systems_Lab1
 
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
+            _totalWork = Mc.Count * Mc[0].Count;
             return await DoWork(unitsNumber);
         }
 
@@ -144,7 +148,7 @@ namespace T7_Computer_Systems_Lab1
             }
 
             for (var i = 0; i < mA.Count; i++)
-                _freeRows.Add(i);
+                FreeRows.Add(i);
 
             Ma = CopyMatrix(mA);
 
@@ -165,7 +169,7 @@ namespace T7_Computer_Systems_Lab1
         private void CommonInitialisation()
         {
             Mc.Clear();
-            _freeRows.Clear();
+            FreeRows.Clear();
             _freeCells.Clear();
             Units.Clear();
             Addition = false;
