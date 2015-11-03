@@ -25,7 +25,7 @@ namespace T7_Computer_Systems_Lab1
         protected int TotalWork;
         public int Progress;
 
-        public class FreeCell
+        protected class FreeCell
         {
             public readonly int Row;
             public readonly int Coll;
@@ -36,7 +36,8 @@ namespace T7_Computer_Systems_Lab1
                 Coll = coll;
             }
         }
-        public readonly List<FreeCell> FreeCells = new List<FreeCell>();
+
+        private readonly List<FreeCell> _freeCells = new List<FreeCell>();
 
         private async Task UnitWork()
         {
@@ -47,11 +48,11 @@ namespace T7_Computer_Systems_Lab1
                     FreeCell cell;
                     lock (FreeRows)
                     {
-                        if (FreeCells.Count == 0)
+                        if (_freeCells.Count == 0)
                             return;
-                        cell = FreeCells[0];
-                        FreeCells.RemoveAt(0);
-                        Progress = (TotalWork - FreeCells.Count) * 100 / TotalWork;
+                        cell = _freeCells[0];
+                        _freeCells.RemoveAt(0);
+                        Progress = (TotalWork - _freeCells.Count) * 100 / TotalWork;
                     }
 
                     if (Addition)
@@ -96,7 +97,7 @@ namespace T7_Computer_Systems_Lab1
 
             for (var i = 0; i < mA.Count; i++)
                 for (var j = 0; j < mA[i].Count; j++)
-                    FreeCells.Add(new FreeCell(i, j));
+                    _freeCells.Add(new FreeCell(i, j));
 
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
@@ -123,7 +124,7 @@ namespace T7_Computer_Systems_Lab1
 
             for (var i = 0; i < Mc.Count; i++)
                 for (var j = 0; j < Mc[i].Count; j++)
-                    FreeCells.Add(new FreeCell(i, j));
+                    _freeCells.Add(new FreeCell(i, j));
 
             Ma = CopyMatrix(mA);
             Mb = CopyMatrix(mB);
@@ -170,7 +171,7 @@ namespace T7_Computer_Systems_Lab1
         {
             Mc.Clear();
             FreeRows.Clear();
-            FreeCells.Clear();
+            _freeCells.Clear();
             Units.Clear();
             Addition = false;
             Transposition = false;

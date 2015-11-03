@@ -12,9 +12,10 @@ namespace T7_Computer_Systems_Lab1
     /// </summary>
     public partial class MainWindow
     {
-        public Divided Dv { get; private set; }
-        public Common Cm { get; private set; }
-        List<List<int>> _matrixA, _matrixB;
+        private Divided Dv { get; set; }
+        private Common Cm { get; set; }
+        private List<List<int>> _matrixA;
+        private List<List<int>> _matrixB;
 
         public MainWindow()
         {
@@ -256,7 +257,7 @@ namespace T7_Computer_Systems_Lab1
             LTime.Content = (Dv.Time > Cm.Time) ? Dv.Time.ToString() : Cm.Time.ToString();
         }
 
-        void set_matrix1()
+        private void set_matrix1()
         {
             var row = Convert.ToInt32(LCollMx1.Content);
             var coll = Convert.ToInt32(LRowMx1.Content);
@@ -278,7 +279,7 @@ namespace T7_Computer_Systems_Lab1
             LAlpha.Content = (s == "0") ? "9" : s;
         }
 
-        void set_matrix2()
+        private void set_matrix2()
         {
             var row = Convert.ToInt32(LCollMx2.Content);
             var coll = Convert.ToInt32(LRowMx2.Content);
