@@ -101,6 +101,8 @@ namespace T7_Computer_Systems_Lab1
             BCount.IsEnabled = true;
             TbMx1.Visibility = Visibility.Visible;
             TbMx2.Visibility = Visibility.Hidden;
+            LAlpha.Visibility = Visibility.Hidden;
+            LTextAlpha.Visibility = Visibility.Hidden;
 
             GbMx2.Visibility = Visibility.Hidden;
             LCollMx2.Visibility = Visibility.Hidden;
@@ -120,6 +122,8 @@ namespace T7_Computer_Systems_Lab1
             BCount.IsEnabled = true;
             TbMx1.Visibility = Visibility.Visible;
             TbMx2.Visibility = Visibility.Visible;
+            LAlpha.Visibility = Visibility.Hidden;
+            LTextAlpha.Visibility = Visibility.Hidden;
 
             GbMx2.Visibility = Visibility.Hidden;
             LCollMx2.Visibility = Visibility.Hidden;
@@ -142,6 +146,8 @@ namespace T7_Computer_Systems_Lab1
             BCount.IsEnabled = true;
             TbMx1.Visibility = Visibility.Visible;
             TbMx2.Visibility = Visibility.Visible;
+            LAlpha.Visibility = Visibility.Visible;
+            LTextAlpha.Visibility = Visibility.Visible;
 
             GbMx2.Visibility = Visibility.Visible;
             LCollMx2.Visibility = Visibility.Visible;
@@ -181,6 +187,7 @@ namespace T7_Computer_Systems_Lab1
             Cm = new Common();
             var unit = Convert.ToInt32(LNumberOfProc.Content);
             var alpha = Convert.ToInt32(LAlpha.Content);
+            PbWork.Visibility = Visibility.Visible;
 
             if (RbDv.IsChecked != null && (bool) RbDv.IsChecked)
                 switch ((string) LType.Content)
@@ -220,12 +227,6 @@ namespace T7_Computer_Systems_Lab1
             print_Matrix(_matrixA, TbMx1);
         }
 
-        private void LAlpha_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            var s = ((Convert.ToInt32(LNumberOfProc.Content.ToString()) + 1) % 10).ToString();
-            LAlpha.Content = (s == "0") ? "1" : s;
-        }
-
         private void LAlpha_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var s = ((Convert.ToInt32(LAlpha.Content.ToString()) + 1) % 10).ToString();
@@ -236,6 +237,11 @@ namespace T7_Computer_Systems_Lab1
         {
             var s = (Convert.ToInt32(LAlpha.Content.ToString()) - 1).ToString();
             LAlpha.Content = (s == "0") ? "9" : s;
+        }
+
+        private void ProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            PbWork.Value = e.NewValue;
         }
 
         void set_matrix2()

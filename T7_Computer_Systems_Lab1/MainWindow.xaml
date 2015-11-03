@@ -30,8 +30,9 @@
         <Label x:Name="LTextType" Content="Operation:" HorizontalAlignment="Left" Margin="500,10,0,0" VerticalAlignment="Top" FontSize="21.333" Foreground="White"/>
         <Label x:Name="LTimeText" Content="Working time: " HorizontalAlignment="Left" Margin="495,329,0,0" VerticalAlignment="Top" FontSize="16" Foreground="White" Height="31" Width="111"/>
         <Label x:Name="LTime" Content="&lt;NONE&gt;" HorizontalAlignment="Left" Margin="611,329,0,0" VerticalAlignment="Top" FontSize="16" Foreground="White" Height="31"/>
-        <Label x:Name="LTextAlpha" Content="α" HorizontalAlignment="Left" Margin="769,-2,0,0" VerticalAlignment="Top" FontSize="32" Foreground="White" Width="54" HorizontalContentAlignment="Center"/>
-        <Label x:Name="LAlpha" Content="5" HorizontalAlignment="Left" Margin="769,48,0,0" VerticalAlignment="Top" FontSize="26.667" Foreground="White" Width="54" HorizontalContentAlignment="Center" MouseLeftButtonDown="LAlpha_MouseLeftButtonDown" MouseRightButtonDown="LAlpha_MouseRightButtonDown"/>
+        <Label x:Name="LTextAlpha" Content="α" HorizontalAlignment="Left" Margin="769,-2,0,0" VerticalAlignment="Top" FontSize="32" Foreground="White" Width="54" HorizontalContentAlignment="Center" Visibility="Hidden"/>
+        <Label x:Name="LAlpha" Content="5" HorizontalAlignment="Left" Margin="769,48,0,0" VerticalAlignment="Top" FontSize="26.667" Foreground="White" Width="54" HorizontalContentAlignment="Center" MouseLeftButtonDown="LAlpha_MouseLeftButtonDown" MouseRightButtonDown="LAlpha_MouseRightButtonDown" Visibility="Hidden"/>
+        <ProgressBar x:Name="PbWork" HorizontalAlignment="Left" Height="17" Margin="10,334,0,0" VerticalAlignment="Top" Width="438" ValueChanged="ProgressBar_ValueChanged" Background="{x:Null}" Visibility="Hidden"/>
 
     </Grid>
 </Window>
