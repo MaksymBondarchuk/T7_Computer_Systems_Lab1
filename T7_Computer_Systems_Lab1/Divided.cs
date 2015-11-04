@@ -52,7 +52,7 @@ namespace T7_Computer_Systems_Lab1
                             return;
                         cell = _freeCells[0];
                         _freeCells.RemoveAt(0);
-                        Progress = (TotalWork - _freeCells.Count) * 100 / TotalWork;
+                        
                     }
 
                     if (Addition)
@@ -67,6 +67,7 @@ namespace T7_Computer_Systems_Lab1
                         var delay = TactLength * (Ma[0].Count * Alpha + Ma[0].Count - 1);
                         await Task.Delay(delay);
                     }
+                    Progress = (TotalWork - _freeCells.Count) * 100 / TotalWork;
                     continue;
                 }
 
