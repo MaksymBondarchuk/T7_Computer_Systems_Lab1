@@ -22,6 +22,8 @@ namespace T7_Computer_Systems_Lab1
         protected DateTime StartTime;
 
         protected int Alpha;
+
+        // For knowledge of performed work percentages
         protected int TotalWork;
         public int Progress;
 
@@ -39,6 +41,10 @@ namespace T7_Computer_Systems_Lab1
 
         private readonly List<FreeCell> _freeCells = new List<FreeCell>();
 
+        /// <summary>
+        /// Work for one processor
+        /// </summary>
+        /// <returns>Nothing</returns>
         private async Task UnitWork()
         {
             while (true)
@@ -52,7 +58,7 @@ namespace T7_Computer_Systems_Lab1
                             return;
                         cell = _freeCells[0];
                         _freeCells.RemoveAt(0);
-                        
+
                     }
 
                     if (Addition)
@@ -90,6 +96,13 @@ namespace T7_Computer_Systems_Lab1
             }
         }
 
+        /// <summary>
+        /// Asynchronously adds two matrixes
+        /// </summary>
+        /// <param name="mA">First matrix</param>
+        /// <param name="mB">Second matrix</param>
+        /// <param name="unitsNumber">Number of processors to perform task</param>
+        /// <returns>Result matrix</returns>
         public async Task<IEnumerable<List<int>>> Add(List<List<int>> mA, List<List<int>> mB, int unitsNumber)
         {
             StartTime = DateTime.Now;
@@ -108,6 +121,14 @@ namespace T7_Computer_Systems_Lab1
             return await DoWork(unitsNumber);
         }
 
+        /// <summary>
+        /// Asynchronously multiplicates two matrixes
+        /// </summary>
+        /// <param name="mA">First matrix</param>
+        /// <param name="mB">Second matrix</param>
+        /// <param name="unitsNumber">Number of processors to perform task</param>
+        /// <param name="alpha"></param>
+        /// <returns>Result matrix</returns>
         public async Task<IEnumerable<List<int>>> Multiplicate(List<List<int>> mA, List<List<int>> mB, int unitsNumber, int alpha)
         {
             StartTime = DateTime.Now;
@@ -134,6 +155,12 @@ namespace T7_Computer_Systems_Lab1
             return await DoWork(unitsNumber);
         }
 
+        /// <summary>
+        /// Asynchronously transpose matrix
+        /// </summary>
+        /// <param name="mA">Matrix to transpose</param>
+        /// <param name="unitsNumber">Number of processors to perform task</param>
+        /// <returns>Transponsed matrix</returns>
         public async Task<IEnumerable<List<int>>> Transpose(List<List<int>> mA, int unitsNumber)
         {
             StartTime = DateTime.Now;
@@ -157,16 +184,18 @@ namespace T7_Computer_Systems_Lab1
             return await DoWork(unitsNumber);
         }
 
-        public void PrintMatrix(IEnumerable<List<int>> matrix)
-        {
-            foreach (var t in matrix)
-            {
-                foreach (var t1 in t)
-                    Console.Write($"{t1,4}");
-                Console.WriteLine();
-            }
-            Console.WriteLine();
-        }
+        /*
+                public void PrintMatrix(IEnumerable<List<int>> matrix)
+                {
+                    foreach (var t in matrix)
+                    {
+                        foreach (var t1 in t)
+                            Console.Write($"{t1,4}");
+                        Console.WriteLine();
+                    }
+                    Console.WriteLine();
+                }
+        */
 
         private void CommonInitialisation()
         {
